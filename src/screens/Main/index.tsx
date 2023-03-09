@@ -1,26 +1,19 @@
 import React from "react";
 // dependencies
 import { NavLink } from "react-router-dom";
+// components
+import Brands from "../../components/BrandsIcon";
+import Logout from "../../components/Buttons/Logout";
 // assets
 import s from "./main.module.scss";
 
-export default function index() {
+export default function Index() {
   return (
     <div className={`${s.main}`}>
       <div className="p-12">
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div
-              className="h-4 w-2 bg-primary
-            rounded-tr-full rounded-br-full"
-            ></div>
-            <h2 className="text-[12px] text-secondary tracking-wide">
-              Invent<span className="text-tertiary">Zone</span>
-            </h2>
-          </div>
-          <div className="text-error text-[12px]">
-            <button className="hover:opacity-75 transition">Logout</button>
-          </div>
+          <Brands />
+          <Logout />
         </div>
         <div className="h-full flex justify-center items-center mt-12">
           <div className="flex flex-col itemx-center">
