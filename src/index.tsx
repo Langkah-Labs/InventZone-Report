@@ -1,8 +1,11 @@
 import React from "react";
+// dependencies
 import ReactDOM from "react-dom/client";
-import "./styles/global.scss";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+// components
+import App from "./App";
+// assets
+import "./styles/global.scss";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
