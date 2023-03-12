@@ -28,13 +28,13 @@ export default function Index() {
             </div>
             <div className="flex items-center justify-center mt-12 gap-4">
               <NavLink
-                to="/general"
+                to="/installedreport"
                 className="flex items-center justify-center w-36 h-10 border border-primary rounded-md text-primary transition hover:bg-primary hover:text-white"
               >
                 General Report
               </NavLink>
               <NavLink
-                to="/general"
+                to="/listodpreport"
                 className="flex items-center justify-center w-36 h-10 border border-primary rounded-md text-primary transition hover:bg-primary hover:text-white"
               >
                 Field Data
