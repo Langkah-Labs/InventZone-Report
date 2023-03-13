@@ -60,7 +60,7 @@ export default function Index() {
           <SubMenu label="General Report" icon={<GrDatabase />}>
             <MenuItem
               icon={<IoMdAttach />}
-              component={<NavLink to="/installedreport" />}
+              component={<NavLink to="/report/general/installed-odp" />}
             >
               Installed ODP
             </MenuItem>
@@ -68,7 +68,7 @@ export default function Index() {
           <SubMenu label="Field Data" icon={<BsFillPeopleFill />}>
             <MenuItem
               icon={<HiDotsVertical />}
-              component={<NavLink to="/listodpreport" />}
+              component={<NavLink to="/report/general/list-odp" />}
             >
               List of ODP
             </MenuItem>
