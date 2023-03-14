@@ -1,7 +1,17 @@
-import React from 'react'
+import React from "react";
+// components
+import BaseLayout from "../../../components/BaseLayout";
 
-export default function index() {
+export default function Index(props: any) {
   return (
-    <div>This is general report</div>
-  )
+    <>
+      <BaseLayout>
+        <div className="mb-2">
+          <h1 className="text-[32px]">General Report</h1>
+        </div>
+        <hr />
+        <div className="py-12">{props.children}</div>
+      </BaseLayout>
+    </>
+  );
 }
