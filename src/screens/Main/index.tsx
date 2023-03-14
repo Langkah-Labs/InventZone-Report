@@ -34,7 +34,7 @@ export default function Index() {
                 General Report
               </NavLink>
               <NavLink
-                to="/report/general/list-odp"
+                to="/report/field-data/list-odp"
                 className="flex items-center justify-center w-36 h-10 border border-primary rounded-md text-primary transition hover:bg-primary hover:text-white"
               >
                 Field Data

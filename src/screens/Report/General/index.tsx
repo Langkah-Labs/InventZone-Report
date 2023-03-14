@@ -7,7 +7,7 @@ export default function Index(props: any) {
     <>
       <BaseLayout>
         <div className="mb-2">
-          <h1 className="text-[32px]">General Report</h1>
+          <h1 className="text-[32px] text-primary">General Report</h1>
         </div>
         <hr />
         <div className="py-12">{props.children}</div>

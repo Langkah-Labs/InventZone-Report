@@ -68,7 +68,7 @@ export default function Index() {
           <SubMenu label="Field Data" icon={<BsFillPeopleFill />}>
             <MenuItem
               icon={<HiDotsVertical />}
-              component={<NavLink to="/report/general/list-odp" />}
+              component={<NavLink to="/report/field-data/list-odp" />}
             >
               List of ODP
             </MenuItem>
