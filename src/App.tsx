@@ -18,10 +18,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/general" element={<GeneralReport />} />
-            <Route path="/installedreport" element={<InstalledODP />} />
-            <Route path="/fielddata" element={<FieldDataReport />} />
-            <Route path="/listodpreport" element={<ListODP />} />
+            <Route path="/report/general" element={<GeneralReport />} />
+            <Route path="/report/general/installed-odp" element={<InstalledODP />} />
+            <Route path="/report/field-data" element={<FieldDataReport />} />
+            <Route path="/report/general/list-odp" element={<ListODP />} />
           </Routes>
         </Router>
       </ProSidebarProvider>
