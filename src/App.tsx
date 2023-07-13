@@ -12,7 +12,9 @@ import ListODP from "./screens/Report/FieldData/ListOfODP";
 import ListCustomer from "./screens/Report/FieldData/ListOfCustomer";
 import MainDataEntry from "./screens/DataEntry/Main";
 import NFCForm from "./screens/DataEntry/ODPData/NFC/NFCForm";
-import ListNFC from "./screens/DataEntry/ODPData/NFC";
+import NFCList from "./screens/DataEntry/ODPData/NFC";
+import ODPForm from "./screens/DataEntry/ODPData/ODP/ODPForm";
+import ODPList from "./screens/DataEntry/ODPData/ODP";
 
 function App() {
   return (
@@ -34,7 +36,7 @@ function App() {
               element={<ListCustomer />}
             />
             <Route path="/data-entry/field-data" element={<MainDataEntry />} />
-            <Route path="/data-entry/field-data/nfc" element={<ListNFC />} />
+            <Route path="/data-entry/field-data/nfc" element={<NFCList />} />
             <Route
               path="/data-entry/field-data/nfc/add"
               element={<NFCForm />}
@@ -42,6 +44,15 @@ function App() {
             <Route
               path="/data-entry/field-data/nfc/update/:id"
               element={<NFCForm />}
+            />
+            <Route path="/data-entry/field-data/odp" element={<ODPList />} />
+            <Route
+              path="/data-entry/field-data/odp/add"
+              element={<ODPForm />}
+            />
+            <Route
+              path="/data-entry/field-data/odp/update/:id"
+              element={<ODPForm />}
             />
           </Routes>
         </Router>

@@ -27,11 +27,11 @@ export default function Index(props: any) {
               >
                 <h2 className="flex flex-col gap-2 items-center">
                   <AiOutlineBoxPlot />
-                  ODP Data
+                  Field Data
                 </h2>
               </NavLink>
               <NavLink
-                to="/"
+                to="/data-entry/user-data/role"
                 className="flex flex-col border border-primary rounded-md p-4 w-40 h-32 justify-center text-[16px] text-primary hover:bg-primary hover:text-white"
               >
                 <h2 className="flex flex-col gap-2 items-center">

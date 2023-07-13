@@ -61,19 +61,19 @@ export default function Index() {
           <SubMenu label="ODP Data" icon={<GrDatabase />}>
             <MenuItem
               icon={<MdOutlineNfc />}
-              component={<NavLink to="/report/general/installed-odp" />}
+              component={<NavLink to="/data-entry/field-data/nfc" />}
             >
               NFC
             </MenuItem>
             <MenuItem
               icon={<AiOutlineBoxPlot />}
-              component={<NavLink to="/report/general/installed-odp" />}
+              component={<NavLink to="/data-entry/field-data/odp" />}
             >
               ODP
             </MenuItem>
             <MenuItem
               icon={<IoMdAttach />}
-              component={<NavLink to="/report/general/installed-odp" />}
+              component={<NavLink to="/data-entry/field-data/odp-attached" />}
             >
               ODP Attached
             </MenuItem>
@@ -81,13 +81,13 @@ export default function Index() {
           <SubMenu label="User Data" icon={<BsFillPeopleFill />}>
             <MenuItem
               icon={<GrStatusInfo />}
-              component={<NavLink to="/report/field-data/list-odp" />}
+              component={<NavLink to="/data-entry/user-data/role" />}
             >
               Role
             </MenuItem>
             <MenuItem
               icon={<HiDotsVertical />}
-              component={<NavLink to="/report/field-data/list-odp" />}
+              component={<NavLink to="/data-entry/user-data/user" />}
             >
               User
             </MenuItem>
