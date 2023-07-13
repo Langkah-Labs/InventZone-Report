@@ -26,19 +26,32 @@ export default function Index() {
                 decision making.
               </h5>
             </div>
-            <div className="flex items-center justify-center mt-12 gap-4">
-              <NavLink
-                to="/report/general/installed-odp"
-                className="flex items-center justify-center w-36 h-10 border border-primary rounded-md text-primary transition hover:bg-primary hover:text-white"
-              >
-                General Report
-              </NavLink>
-              <NavLink
-                to="/report/general/list-odp"
-                className="flex items-center justify-center w-36 h-10 border border-primary rounded-md text-primary transition hover:bg-primary hover:text-white"
-              >
-                Field Data
-              </NavLink>
+            <div className="flex flex-col items-center gap-8 mt-4">
+              <div className="flex items-center justify-center gap-4">
+                <NavLink
+                  to="/report/general/installed-odp"
+                  className="flex items-center justify-center w-36 h-10 border border-primary rounded-md text-primary transition hover:bg-primary hover:text-white"
+                >
+                  General Report
+                </NavLink>
+                <NavLink
+                  to="/report/field-data/list-odp"
+                  className="flex items-center justify-center w-36 h-10 border border-primary rounded-md text-primary transition hover:bg-primary hover:text-white"
+                >
+                  Field Data
+                </NavLink>
+              </div>
+              <div className="flex flex-col gap-2 items-center">
+                <h5 className="text-[12px] text-softwhite">
+                  Create all your necessary data to support your operational
+                </h5>
+                <NavLink
+                  to="/data-entry/field-data"
+                  className="flex items-center justify-center w-40 h-10 border border-error rounded-md text-error transition hover:bg-error hover:text-white"
+                >
+                  Create New Data
+                </NavLink>
+              </div>
             </div>
           </div>
         </div>

@@ -8,12 +8,13 @@ import {
   SubMenu,
   useProSidebar,
 } from "react-pro-sidebar";
-import { MdDomain } from "react-icons/md";
+import { MdDomain, MdOutlineNfc } from "react-icons/md";
 import { IoMdMenu, IoMdAttach } from "react-icons/io";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import { HiDotsVertical } from "react-icons/hi";
-import { GrDatabase } from "react-icons/gr";
+import { GrDatabase, GrStatusInfo } from "react-icons/gr";
+import { AiOutlineBoxPlot } from "react-icons/ai";
 
 export default function Index() {
   const { collapseSidebar } = useProSidebar();
@@ -57,20 +58,38 @@ export default function Index() {
           >
             Main menu
           </MenuItem>
-          <SubMenu label="General Report" icon={<GrDatabase />}>
+          <SubMenu label="ODP Data" icon={<GrDatabase />}>
+            <MenuItem
+              icon={<MdOutlineNfc />}
+              component={<NavLink to="/report/general/installed-odp" />}
+            >
+              NFC
+            </MenuItem>
+            <MenuItem
+              icon={<AiOutlineBoxPlot />}
+              component={<NavLink to="/report/general/installed-odp" />}
+            >
+              ODP
+            </MenuItem>
             <MenuItem
               icon={<IoMdAttach />}
               component={<NavLink to="/report/general/installed-odp" />}
             >
-              Installed ODP
+              ODP Attached
             </MenuItem>
           </SubMenu>
-          <SubMenu label="Field Data" icon={<BsFillPeopleFill />}>
+          <SubMenu label="User Data" icon={<BsFillPeopleFill />}>
+            <MenuItem
+              icon={<GrStatusInfo />}
+              component={<NavLink to="/report/field-data/list-odp" />}
+            >
+              Role
+            </MenuItem>
             <MenuItem
               icon={<HiDotsVertical />}
               component={<NavLink to="/report/field-data/list-odp" />}
             >
-              List of ODP
+              User
             </MenuItem>
           </SubMenu>
           <MenuItem
