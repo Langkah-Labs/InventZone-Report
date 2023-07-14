@@ -19,6 +19,8 @@ import ODPAttachedForm from "./screens/DataEntry/ODPData/ODPAttached/ODPAttached
 import ODPAttachedList from "./screens/DataEntry/ODPData/ODPAttached";
 import RoleForm from "./screens/DataEntry/UserData/Role/RoleForm";
 import RoleList from "./screens/DataEntry/UserData/Role";
+import UserForm from "./screens/DataEntry/UserData/User/UserForm";
+import UserList from "./screens/DataEntry/UserData/User";
 
 function App() {
   return (
@@ -78,6 +80,15 @@ function App() {
             <Route
               path="/data-entry/user-data/role/update/:id"
               element={<RoleForm />}
+            />
+            <Route path="/data-entry/user-data/user" element={<UserList />} />
+            <Route
+              path="/data-entry/user-data/user/add"
+              element={<UserForm />}
+            />
+            <Route
+              path="/data-entry/user-data/user/update/:id"
+              element={<UserForm />}
             />
           </Routes>
         </Router>

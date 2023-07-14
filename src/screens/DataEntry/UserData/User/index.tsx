@@ -15,8 +15,8 @@ import Spinner from "../../../../components/Spinner";
 interface DataType {
   key: string;
   no: number;
-  id: string;
-  tags: string[];
+  name: string;
+  roleName: string;
 }
 
 export default function Index() {
@@ -31,31 +31,16 @@ export default function Index() {
       align: "center",
     },
     {
-      title: "NFC ID",
-      dataIndex: "id",
-      key: "id",
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
       align: "center",
     },
     {
-      title: "Tags",
-      key: "tags",
-      dataIndex: "tags",
+      title: "Role Name",
+      dataIndex: "roleName",
+      key: "roleName",
       align: "center",
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = "green";
-            if (tag === "NOT USED") {
-              color = "volcano";
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
     },
     {
       title: "Action",
@@ -64,7 +49,7 @@ export default function Index() {
       render: (_, record) => (
         <Space size="middle">
           <NavLink
-            to={`/data-entry/field-data/nfc/update/347GSFEFO7888BNBNB`}
+            to={`/data-entry/user-data/user/update/1`}
             className="rounded bg-green-500 px-4 flex justify-center items-center gap-1 hover:opacity-75 hover:transition-opacity"
           >
             <MdUpdate />
@@ -73,7 +58,7 @@ export default function Index() {
           <button
             className="rounded text-red-500 px-4 flex items-center justify-center gap-1 hover:opacity-75 hover:transition-opacity"
             onClick={() => {
-              deleteHandler("347GSFEFO7888BNBNB");
+              deleteHandler("1");
             }}
           >
             <MdDeleteForever />
@@ -88,20 +73,26 @@ export default function Index() {
     {
       key: "1",
       no: 1,
-      id: "347GSFEFO7888BNBNB",
-      tags: ["Utilized"],
+      name: "Andry",
+      roleName: "Administrator",
     },
     {
       key: "2",
       no: 2,
-      id: "GHTTWIW23402232390",
-      tags: ["NOT USED"],
+      name: "Ben",
+      roleName: "Super Admin",
     },
     {
       key: "3",
       no: 3,
-      id: "FGTTFF90340287HY90",
-      tags: ["Utilized"],
+      name: "French",
+      roleName: "Staff",
+    },
+    {
+      key: "4",
+      no: 4,
+      name: "Bulky",
+      roleName: "Field - Opearation",
     },
   ];
 
@@ -137,7 +128,7 @@ export default function Index() {
       {isLoading ? (
         <Spinner />
       ) : (
-        <General title="NFC Data">
+        <General title="User Data">
           <div className="flex flex-col gap-6">
             <div className="flex justify-between">
               <input
@@ -148,7 +139,7 @@ export default function Index() {
                 value={searchValues}
                 onChange={(e) => setSearchValues(e.target.value)}
               />
-              <NavLink to="/data-entry/field-data/nfc/add">
+              <NavLink to="/data-entry/user-data/user/add">
                 <div className="border border-primary text-primary rounded-md flex gap-2 justify-center items-center py-1 px-2 hover:bg-primary hover:text-white">
                   <IoIosAddCircle />
                   Tambah Data
@@ -156,7 +147,11 @@ export default function Index() {
               </NavLink>
             </div>
             <div>
-              <Table columns={columns} dataSource={data} pagination={{ pageSize: 2 }} />
+              <Table
+                columns={columns}
+                dataSource={data}
+                pagination={{ pageSize: 2 }}
+              />
             </div>
           </div>
         </General>
