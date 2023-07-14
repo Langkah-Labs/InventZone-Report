@@ -15,6 +15,8 @@ import NFCForm from "./screens/DataEntry/ODPData/NFC/NFCForm";
 import NFCList from "./screens/DataEntry/ODPData/NFC";
 import ODPForm from "./screens/DataEntry/ODPData/ODP/ODPForm";
 import ODPList from "./screens/DataEntry/ODPData/ODP";
+import ODPAttachedForm from "./screens/DataEntry/ODPData/ODPAttached/ODPAttachedForm";
+import ODPAttachedList from "./screens/DataEntry/ODPData/ODPAttached";
 
 function App() {
   return (
@@ -53,6 +55,15 @@ function App() {
             <Route
               path="/data-entry/field-data/odp/update/:id"
               element={<ODPForm />}
+            />
+            <Route path="/data-entry/field-data/odp-attached" element={<ODPAttachedList />} />
+            <Route
+              path="/data-entry/field-data/odp-attached/add"
+              element={<ODPAttachedForm />}
+            />
+            <Route
+              path="/data-entry/field-data/odp-attached/update/:id"
+              element={<ODPAttachedForm />}
             />
           </Routes>
         </Router>
