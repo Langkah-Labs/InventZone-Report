@@ -14,15 +14,21 @@ export default function Index() {
   let { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [values, setValues] = useState<any>({
-    nfcId: "",
-    nfcDesc: "",
+    odpId: "",
+    odpName: "",
+    odpCapacity: "",
+    odpOpticalPower: "",
+    odpDesc: "",
   });
 
   useEffect(() => {
     if (id) {
       setValues({
-        nfcId: id,
-        nfcDesc: "",
+        odpId: id,
+        odpName: "",
+        odpCapacity: "",
+        odpOpticalPower: "",
+        odpDesc: "",
       });
     } else {
       setIsLoading(false);
@@ -91,40 +97,52 @@ export default function Index() {
       ) : (
         <General title="NFC Data">
           <div>
-            <div className="text-[12px]">
-              <h2>
-                <b>How to get your NFC ID</b>
-              </h2>
-              <li>Prepare your NFC</li>
-              <li>Place your cursor to NFC ID Field</li>
-              <li>Scan your NFC using your NFC reader</li>
-            </div>
             <form onSubmit={submitHandler}>
-              <div className="flex flex-col gap-4 mb-16 mt-8">
+              <div className="flex flex-col gap-4 mb-16">
                 <input
                   type="text"
-                  name="nfcId"
-                  placeholder="NFC ID"
+                  name="odpName"
+                  placeholder="ODP Name"
                   className="w-4/5 h-[44px] px-3 py-4 text-[14px] rounded-md border"
-                  value={values.nfcId}
+                  value={values.odpName}
                   onChange={(e) =>
-                    setValues({ ...values, nfcId: e.target.value })
+                    setValues({ ...values, odpName: e.target.value })
+                  }
+                />
+                <input
+                  type="text"
+                  name="odpCapacity"
+                  placeholder="Capacity"
+                  className="w-4/5 h-[44px] px-3 py-4 text-[14px] rounded-md border"
+                  value={values.odpCapacity}
+                  onChange={(e) =>
+                    setValues({ ...values, odpCapacity: e.target.value })
+                  }
+                />
+                <input
+                  type="text"
+                  name="odpOpticalPower"
+                  placeholder="Optical Power"
+                  className="w-4/5 h-[44px] px-3 py-4 text-[14px] rounded-md border"
+                  value={values.odpOpticalPower}
+                  onChange={(e) =>
+                    setValues({ ...values, odpOpticalPower: e.target.value })
                   }
                 />
                 <textarea
-                  name="nfcDesc"
-                  placeholder="NFC Description"
+                  name="odpDeac"
+                  placeholder="ODP Description"
                   className="w-4/5 h-[80px] px-3 py-4 text-[14px] rounded-md border"
-                  value={values.nfcDesc}
+                  value={values.odpDeac}
                   onChange={(e) =>
-                    setValues({ ...values, nfcDesc: e.target.value })
+                    setValues({ ...values, odpDeac: e.target.value })
                   }
                 />
               </div>
               <hr />
               <div className="flex justify-start items-center gap-1">
                 <NavLink
-                  to="/data-entry/field-data/nfc"
+                  to="/data-entry/field-data/odp"
                   className="bg-error px-4 py-1 rounded text-white flex justify-center items-center gap-2 mt-4 hover:opacity-75 hover:transition-opacity"
                 >
                   Cancel

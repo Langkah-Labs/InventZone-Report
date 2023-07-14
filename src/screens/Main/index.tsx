@@ -2,7 +2,6 @@ import React from "react";
 // dependencies
 import { NavLink } from "react-router-dom";
 // components
-import Brands from "../../components/BrandsIcon";
 import Logout from "../../components/Buttons/Logout";
 // assets
 import s from "./main.module.scss";
@@ -10,12 +9,18 @@ import s from "./main.module.scss";
 export default function Index() {
   return (
     <div className={`${s.main}`}>
-      <div className="p-12">
+      <div className="py-4 px-8 ">
         <div className="flex justify-between items-center">
-          <Brands />
+          <div className="p-0 w-1/5">
+            <img
+              src="https://imagizer.imageshack.com/img923/7346/gtc2zS.png"
+              alt="invent-zone-icon"
+              className="w-3/6"
+            />
+          </div>
           <Logout />
         </div>
-        <div className="h-full flex justify-center items-center mt-12">
+        <div className="h-full flex justify-center items-center mt-4">
           <div className="flex flex-col itemx-center">
             <div className="flex flex-col items-center">
               <h2 className="text-[48px] text-primary uppercase tracking-wide">

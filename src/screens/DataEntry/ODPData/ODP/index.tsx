@@ -15,7 +15,9 @@ import Spinner from "../../../../components/Spinner";
 interface DataType {
   key: string;
   no: number;
-  id: string;
+  name: string;
+  capacity: string;
+  opticalPower: string;
   tags: string[];
 }
 
@@ -31,10 +33,24 @@ export default function Index() {
       align: "center",
     },
     {
-      title: "NFC ID",
-      dataIndex: "id",
-      key: "id",
+      title: "ODP Name",
+      dataIndex: "name",
+      key: "name",
       align: "center",
+    },
+    {
+      title: "Capacity",
+      dataIndex: "capacity",
+      key: "capacity",
+      align: "center",
+      render: (_, { capacity }) => <>{capacity} port</>,
+    },
+    {
+      title: "Optical Power",
+      dataIndex: "opticalPower",
+      key: "opticalPower",
+      align: "center",
+      render: (_, { opticalPower }) => <>{opticalPower} dBm</>,
     },
     {
       title: "Tags",
@@ -64,7 +80,7 @@ export default function Index() {
       render: (_, record) => (
         <Space size="middle">
           <NavLink
-            to={`/data-entry/field-data/nfc/update/347GSFEFO7888BNBNB`}
+            to={`/data-entry/field-data/odp/update/1`}
             className="rounded bg-green-500 px-4 flex justify-center items-center gap-1 hover:opacity-75 hover:transition-opacity"
           >
             <MdUpdate />
@@ -88,19 +104,25 @@ export default function Index() {
     {
       key: "1",
       no: 1,
-      id: "347GSFEFO7888BNBNB",
+      name: "ODP - 1",
+      capacity: "8",
+      opticalPower: "-19",
       tags: ["Utilized"],
     },
     {
       key: "2",
       no: 2,
-      id: "GHTTWIW23402232390",
+      name: "ODP - 2",
+      capacity: "8",
+      opticalPower: "-21",
       tags: ["NOT USED"],
     },
     {
       key: "3",
       no: 3,
-      id: "FGTTFF90340287HY90",
+      name: "ODP - 3",
+      capacity: "8",
+      opticalPower: "-22",
       tags: ["Utilized"],
     },
   ];
@@ -148,7 +170,7 @@ export default function Index() {
                 value={searchValues}
                 onChange={(e) => setSearchValues(e.target.value)}
               />
-              <NavLink to="/data-entry/field-data/nfc/add">
+              <NavLink to="/data-entry/field-data/odp/add">
                 <div className="border border-primary text-primary rounded-md flex gap-2 justify-center items-center py-1 px-2 hover:bg-primary hover:text-white">
                   <IoIosAddCircle />
                   Tambah Data
@@ -156,7 +178,11 @@ export default function Index() {
               </NavLink>
             </div>
             <div>
-              <Table columns={columns} dataSource={data} pagination={{ pageSize: 2 }} />
+              <Table
+                columns={columns}
+                dataSource={data}
+                pagination={{ pageSize: 2 }}
+              />
             </div>
           </div>
         </General>
