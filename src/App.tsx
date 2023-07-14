@@ -17,6 +17,8 @@ import ODPForm from "./screens/DataEntry/ODPData/ODP/ODPForm";
 import ODPList from "./screens/DataEntry/ODPData/ODP";
 import ODPAttachedForm from "./screens/DataEntry/ODPData/ODPAttached/ODPAttachedForm";
 import ODPAttachedList from "./screens/DataEntry/ODPData/ODPAttached";
+import RoleForm from "./screens/DataEntry/UserData/Role/RoleForm";
+import RoleList from "./screens/DataEntry/UserData/Role";
 
 function App() {
   return (
@@ -56,7 +58,10 @@ function App() {
               path="/data-entry/field-data/odp/update/:id"
               element={<ODPForm />}
             />
-            <Route path="/data-entry/field-data/odp-attached" element={<ODPAttachedList />} />
+            <Route
+              path="/data-entry/field-data/odp-attached"
+              element={<ODPAttachedList />}
+            />
             <Route
               path="/data-entry/field-data/odp-attached/add"
               element={<ODPAttachedForm />}
@@ -64,6 +69,15 @@ function App() {
             <Route
               path="/data-entry/field-data/odp-attached/update/:id"
               element={<ODPAttachedForm />}
+            />
+            <Route path="/data-entry/user-data/role" element={<RoleList />} />
+            <Route
+              path="/data-entry/user-data/role/add"
+              element={<RoleForm />}
+            />
+            <Route
+              path="/data-entry/user-data/role/update/:id"
+              element={<RoleForm />}
             />
           </Routes>
         </Router>
