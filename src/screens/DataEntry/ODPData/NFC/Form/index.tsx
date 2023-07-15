@@ -3,13 +3,13 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { MdCancel } from "react-icons/md";
 import { BsBoxArrowInRight } from "react-icons/bs";
-import { useNFCForm } from "./hooks";
+import { useNFC } from "../hooks";
 // components
 import General from "../../../General";
 import Spinner from "../../../../../components/Spinner";
 
 export default function Index() {
-  const { isLoading, values, setValues, submitHandler } = useNFCForm();
+  const { isLoading, values, setValues, submitHandler } = useNFC();
 
   return (
     <>

@@ -4,20 +4,27 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
-export const useNFCForm = () => {
+export const useODP = () => {
   const navigate = useNavigate();
   let { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
+  const [searchValues, setSearchValues] = useState<any>("");
   const [values, setValues] = useState<any>({
-    nfcId: "",
-    nfcDesc: "",
+    odpId: "",
+    odpName: "",
+    odpCapacity: "",
+    odpOpticalPower: "",
+    odpDesc: "",
   });
 
   useEffect(() => {
     if (id) {
       setValues({
-        nfcId: id,
-        nfcDesc: "",
+        odpId: id,
+        odpName: "",
+        odpCapacity: "",
+        odpOpticalPower: "",
+        odpDesc: "",
       });
     } else {
       setIsLoading(false);
@@ -40,7 +47,7 @@ export const useNFCForm = () => {
             text: "Your data has been updated!",
             icon: "success",
           }).then(() => {
-            navigate("/data-entry/field-data/nfc");
+            navigate("/data-entry/field-data/odp");
           });
         })
         .catch(function (error) {
@@ -60,7 +67,7 @@ export const useNFCForm = () => {
             text: "Your submission has been saved!",
             icon: "success",
           }).then(() => {
-            navigate("/data-entry/field-data/nfc");
+            navigate("/data-entry/field-data/odp");
           });
         })
         .catch(function (error) {
@@ -72,12 +79,38 @@ export const useNFCForm = () => {
         });
     }
   };
+
+  const deleteHandler = async (id: string) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this record!",
+      icon: "warning",
+      buttons: ["Cancel", "Yes"],
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        setIsLoading(true);
+        await axios.delete(`https://dummyjson.com/users/${id}`).then(() =>
+          swal({
+            title: "Deleted!",
+            text: "Poof! Your record has been deleted!",
+            icon: "success",
+          }).then(() => window.location.reload())
+        );
+      } else {
+        swal("Your record is safe!");
+      }
+    });
+  };
   return {
     isLoading,
     values,
+    searchValues,
     setValues,
     submitHandler,
+    deleteHandler,
+    setSearchValues,
   };
 };
 
-export default useNFCForm;
+export default useODP;
