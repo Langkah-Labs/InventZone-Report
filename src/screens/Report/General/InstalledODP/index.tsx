@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 // components
 import General from "../../General";
 import Spinner from "../../../../components/Spinner";
+import PieChart from "./PieChart";
+import MapChart from "./MapChart";
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
@@ -33,14 +35,22 @@ export default function Index() {
                 <span className="text-[28px] text-primary">4</span>
               </div>
             </div>
-            <div className="flex justify-center items-center gap-4 mt-12">
-              <div className="p-2 flex flex-col gap-2">
-                <h4 className="text-[12px]">ODP Mapping</h4>
-                <div>MAP bisa pake leaflet </div>
+            <div className="mt-12 flex flex-col gap-12 rounded-md shadow-md border border-softwhite p-12">
+              <div>
+                <h2 className="text-[28px] underline underline-offset-4">
+                  <b>ODP Classification</b>
+                </h2>
+                <h5>
+                  ODP has been classified to level of <b>utilizied</b> by user
+                </h5>
               </div>
-              <div className="p-2 flex flex-col gap-2">
-                <h4 className="text-[12px]">ODP Classification</h4>
-                <div>Pie Chart paling lengkap bisa pake echart</div>
+              <div className="flex justify-center items-center gap-2">
+                <div className="flex flex-col gap-2 w-6/12">
+                  <PieChart />
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 w-full h-[600px] border rounded-md shadow-md border-softwhite">
+                <MapChart />
               </div>
             </div>
           </div>

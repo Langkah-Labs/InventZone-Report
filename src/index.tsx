@@ -7,6 +7,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import App from "./App";
 // assets
 import "./styles/global.scss";
+import "leaflet/dist/leaflet.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
