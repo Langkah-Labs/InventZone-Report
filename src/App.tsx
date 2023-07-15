@@ -16,7 +16,7 @@ import NFCForm from "./screens/DataEntry/ODPData/NFC/Form";
 import NFCList from "./screens/DataEntry/ODPData/NFC";
 import ODPForm from "./screens/DataEntry/ODPData/ODP/Form";
 import ODPList from "./screens/DataEntry/ODPData/ODP";
-import ODPAttachedForm from "./screens/DataEntry/ODPData/ODPAttached/ODPAttachedForm";
+import ODPAttachedForm from "./screens/DataEntry/ODPData/ODPAttached/Form";
 import ODPAttachedList from "./screens/DataEntry/ODPData/ODPAttached";
 import RoleForm from "./screens/DataEntry/UserData/Role/RoleForm";
 import RoleList from "./screens/DataEntry/UserData/Role";
