@@ -8,7 +8,7 @@ import {
   SubMenu,
   useProSidebar,
 } from "react-pro-sidebar";
-import { MdDomain } from "react-icons/md";
+import { MdDomain, MdLogout } from "react-icons/md";
 import { IoMdMenu, IoMdAttach } from "react-icons/io";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
@@ -63,6 +63,12 @@ export default function Index() {
               component={<NavLink to="/report/general/installed-odp" />}
             >
               Installed ODP
+            </MenuItem>
+            <MenuItem
+              icon={<MdLogout />}
+              component={<NavLink to="/report/general/dismantle-odp" />}
+            >
+              Dismantle ODP
             </MenuItem>
           </SubMenu>
           <SubMenu label="Field Data" icon={<BsFillPeopleFill />}>

@@ -7,6 +7,7 @@ import Main from "./screens/Main";
 import Login from "./screens/Login";
 import GeneralReport from "./screens/Report/General";
 import InstalledODP from "./screens/Report/General/InstalledODP";
+import DismantleODP from "./screens/Report/General/DismantleODP";
 import FieldDataReport from "./screens/Report/FieldData";
 import ListODP from "./screens/Report/FieldData/ListOfODP";
 import ListCustomer from "./screens/Report/FieldData/ListOfCustomer";
@@ -34,6 +35,10 @@ function App() {
             <Route
               path="/report/general/installed-odp"
               element={<InstalledODP />}
+            />
+            <Route
+              path="/report/general/dismantle-odp"
+              element={<DismantleODP />}
             />
             <Route path="/report/field-data" element={<FieldDataReport />} />
             <Route path="/report/field-data/list-odp" element={<ListODP />} />
