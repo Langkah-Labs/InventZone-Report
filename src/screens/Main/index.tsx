@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import Logout from "../../components/Buttons/Logout";
 // assets
 import s from "./main.module.scss";
+import { icon_img } from "../../utils/constants";
 
 export default function Index() {
   return (
@@ -12,11 +13,7 @@ export default function Index() {
       <div className="py-4 px-8 ">
         <div className="flex justify-between items-center">
           <div className="p-0 w-1/5">
-            <img
-              src="https://imagizer.imageshack.com/img923/7346/gtc2zS.png"
-              alt="invent-zone-icon"
-              className="w-3/6"
-            />
+            <img src={icon_img} alt="invent-zone-icon" className="w-3/6" />
           </div>
           <Logout />
         </div>

@@ -1,5 +1,8 @@
 export const home_img =
-  "https://drive.google.com/uc?export=view&id=14yRxG1XpzWmZ7CMrxTeyk2blmqh6hUPU";
+  "https://imagizer.imageshack.com/img922/5253/Xgz4CD.png";
+
+export const icon_img =
+  "https://imagizer.imageshack.com/img923/7346/gtc2zS.png";
 
 export const mock_data = [
   {

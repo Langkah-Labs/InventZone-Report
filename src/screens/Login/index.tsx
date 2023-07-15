@@ -1,35 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 // dependencies
-import { useNavigate } from "react-router-dom";
-// components
-import Brands from "../../components/BrandsIcon";
+import { useLogin } from "./hooks";
 // assets
 import s from "./login.module.scss";
-
-export interface FormData {
-  username: string;
-  password: string;
-}
+import { icon_img } from "../../utils/constants";
 
 export default function Index() {
-  const navigate = useNavigate();
-  const [values, setValues] = useState<FormData>({
-    username: "",
-    password: "",
-  } as FormData);
+  const { values, setValues, submitHandler } = useLogin();
 
-  const submitHandler = async (e: any) => {
-    e.preventDefault();
-    navigate("/");
-  };
-  
   return (
     <div className={`${s.login} h-screen flex justify-center items-center`}>
       <div className="flex justify-center">
         <div className={`${s.login_left} w-60 rounded-l-md`}></div>
         <div className="w-96 px-8 py-12 flex flex-col">
-          <div className="ml-4">
-            <Brands />
+          <div className="p-0 w-2/5">
+            <img src={icon_img} alt="invent-zone-icon" className="w-4/6" />
           </div>
           <div>
             <h2 className="text-primary text-[64px]">

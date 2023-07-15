@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+// dependencies
+import { useDismantleODP } from "./hooks";
 // components
 import General from "../../General";
 import Spinner from "../../../../components/Spinner";
 import BarChart from "./BarChart";
 
 export default function Index() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
+  const { isLoading } = useDismantleODP();
 
   return (
     <>
