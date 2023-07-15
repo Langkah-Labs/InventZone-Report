@@ -96,8 +96,9 @@ export default function Index() {
                 <b>How to get your NFC ID</b>
               </h2>
               <li>Prepare your NFC</li>
-              <li>Place your cursor to NFC ID Field</li>
               <li>Scan your NFC using your NFC reader</li>
+              <li>Get the NFC Serial Number</li>
+              <li>Write the NFC Serial Number</li>
             </div>
             <form onSubmit={submitHandler}>
               <div className="flex flex-col gap-4 mb-16 mt-8">
