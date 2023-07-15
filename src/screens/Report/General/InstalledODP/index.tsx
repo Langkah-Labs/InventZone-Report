@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+// dependencies
+import { useInstalledODP } from "./hooks";
 // components
 import General from "../../General";
 import Spinner from "../../../../components/Spinner";
@@ -6,11 +8,7 @@ import PieChart from "./PieChart";
 import MapChart from "./MapChart";
 
 export default function Index() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
+  const { isLoading } = useInstalledODP();
 
   return (
     <>
