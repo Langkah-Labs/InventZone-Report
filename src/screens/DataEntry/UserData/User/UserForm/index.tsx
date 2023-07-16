@@ -91,7 +91,9 @@ export default function Index() {
   return (
     <>
       {isLoading ? (
-        <Spinner />
+        <div className="h-screen flex justify-center items-center">
+          <Spinner />
+        </div>
       ) : (
         <General title="User Data">
           <div>

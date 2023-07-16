@@ -16,7 +16,9 @@ export default function Index(props: any) {
   return (
     <>
       {isLoading ? (
-        <Spinner />
+        <div className="h-screen flex justify-center items-center">
+          <Spinner />
+        </div>
       ) : (
         <General title="Operation Data">
           <div>

@@ -4,29 +4,17 @@ import api from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
-interface FormData {
-  username: string;
-  password: string;
-}
-
-export const useLogin = () => {
+export const useMain = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [values, setValues] = useState<FormData>({
-    username: "",
-    password: "",
-  } as FormData);
 
-  const loginHandler = async (e: any) => {
-    e.preventDefault();
+  const logoutHandler = async () => {
     setIsLoading(true);
     try {
-      await api.createSession(values.username, values.password);
-      const data = await api.getAccount();
-
-      if (data) {
+      const res = await api.deleteCurrentSession();
+      if (res) {
         setIsLoading(false);
-        navigate("/");
+        navigate("/login");
       }
     } catch (e) {
       setIsLoading(false);
@@ -40,11 +28,9 @@ export const useLogin = () => {
   };
 
   return {
-    values,
     isLoading,
-    setValues,
-    loginHandler,
+    logoutHandler,
   };
 };
 
-export default useLogin;
+export default useMain;

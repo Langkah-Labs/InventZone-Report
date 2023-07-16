@@ -115,7 +115,9 @@ export default function Index() {
   return (
     <>
       {isLoading ? (
-        <Spinner />
+        <div className="h-screen flex justify-center items-center">
+          <Spinner />
+        </div>
       ) : (
         <General title="Role Data">
           <div className="flex flex-col gap-6">
@@ -136,7 +138,11 @@ export default function Index() {
               </NavLink>
             </div>
             <div>
-              <Table columns={columns} dataSource={data} pagination={{ pageSize: 2 }} />
+              <Table
+                columns={columns}
+                dataSource={data}
+                pagination={{ pageSize: 2 }}
+              />
             </div>
           </div>
         </General>
