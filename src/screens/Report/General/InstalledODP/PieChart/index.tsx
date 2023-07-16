@@ -32,7 +32,7 @@ const option: EChartsOption = {
       radius: "50%",
       color: colorPalette,
       data: [
-        { value: 2, name: "High Port" },
+        { value: 3, name: "High Port" },
         { value: 1, name: "Medium Port" },
         { value: 1, name: "Low Port" },
       ],

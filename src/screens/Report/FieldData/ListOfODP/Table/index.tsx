@@ -57,7 +57,9 @@ export default function index() {
       render: (_, { location }) => (
         <>
           <a
-            href={location}
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`https://maps.google.com/?q=${location}`}
             className="text-error underline underline-offset-4"
           >
             View Location
@@ -87,34 +89,52 @@ export default function index() {
     {
       key: "1",
       no: 1,
-      odpId: "ODP - 1",
+      odpId: "E200RT567",
       capacity: "8",
       opticalPower: "-19",
       installedDate: "04 July 2023",
-      location: "Senayan, West Jakarta",
+      location: "-6.826844270379128, 110.00180855164521",
     },
     {
       key: "2",
       no: 2,
-      odpId: "ODP - 2",
+      odpId: "E3000FGHY",
       capacity: "8",
       opticalPower: "-21",
       installedDate: "04 July 2023",
-      location: "Fatmawati, South Jakarta",
+      location: "-6.008239485073829, 106.03978463292805",
     },
     {
       key: "3",
       no: 3,
-      odpId: "ODP - 3",
+      odpId: "E200N812F",
       capacity: "8",
       opticalPower: "-22",
       installedDate: "04 July 2023",
-      location: "Kemang, South Jakarta",
+      location: "-6.886683176271803, 107.62005181464347",
+    },
+    {
+      key: "4",
+      no: 4,
+      odpId: "E200RT567",
+      capacity: "8",
+      opticalPower: "-22",
+      installedDate: "04 July 2023",
+      location: "-8.46054729573578, 115.17057836507453",
+    },
+    {
+      key: "5",
+      no: 5,
+      odpId: "E200RT567",
+      capacity: "8",
+      opticalPower: "-22",
+      installedDate: "04 July 2023",
+      location: "-4.009106559113772, 103.23899308454023",
     },
   ];
   return (
     <div>
-      <Table columns={columns} dataSource={data} pagination={{ pageSize: 2 }} />
+      <Table columns={columns} dataSource={data} pagination={{ pageSize: 3 }} />
     </div>
   );
 }
