@@ -20,7 +20,7 @@ const option: EChartsOption = {
   },
   series: [
     {
-      data: [120, 200, 150, 80, 70, 110, 130],
+      data: [0, 1, 2, 0, 0, 2, 0],
       type: "bar",
     },
   ],
