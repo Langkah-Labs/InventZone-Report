@@ -9,7 +9,7 @@ import General from "../../../General";
 import Spinner from "../../../../../components/Spinner";
 
 export default function Index() {
-  const { isLoading, values, setValues, handleAddNFC } = useNFC();
+  const { isLoading, values, isDisabled, setValues, submitHandler } = useNFC();
 
   return (
     <>
@@ -29,7 +29,7 @@ export default function Index() {
               <li>Get the NFC Serial Number</li>
               <li>Write the NFC Serial Number</li>
             </div>
-            <form onSubmit={handleAddNFC}>
+            <form onSubmit={submitHandler}>
               <div className="flex flex-col gap-4 mb-16 mt-8">
                 <input
                   type="text"
@@ -40,6 +40,7 @@ export default function Index() {
                   onChange={(e) =>
                     setValues({ ...values, nfcId: e.target.value })
                   }
+                  disabled={isDisabled}
                 />
                 <textarea
                   name="nfcDesc"
