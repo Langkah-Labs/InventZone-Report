@@ -38,10 +38,10 @@ export const useNFC = () => {
 
   const getSelectedNFC = async (id: any) => {
     if (id) {
-      const res = await api.listDocuments(Server.databaseID, collectionId, id);
+      const res = await api.getDocument(Server.databaseID, collectionId, id);
       setValues({
-        nfcId: res.documents[0].nfcId,
-        nfcDesc: res.documents[0].nfcDesc,
+        nfcId: res.nfcId,
+        nfcDesc: res.nfcDesc,
       });
       setIsDisabled(true);
     }

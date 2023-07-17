@@ -65,3 +65,13 @@ export const mock_data = [
     long: 103.23899308454023,
   },
 ];
+
+export const generateUniqueId = () => {
+  var randomNumber = Math.random() * 10 ** 36 - 1;
+  var uniqueId = randomNumber.toString(36);
+  while (uniqueId.length < 36) {
+    uniqueId = "0" + uniqueId;
+  }
+
+  return uniqueId;
+}

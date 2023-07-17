@@ -47,6 +47,10 @@ let api: any = {
       .database.createDocument(databaseId, collectionId, documentId, data);
   },
 
+  getDocument: (databaseId: any, collectionId: any, documentId:any) => {
+    return api.provider().database.getDocument(databaseId, collectionId, documentId);
+  },
+
   listDocuments: (databaseId: any, collectionId: any) => {
     return api.provider().database.listDocuments(databaseId, collectionId);
   },

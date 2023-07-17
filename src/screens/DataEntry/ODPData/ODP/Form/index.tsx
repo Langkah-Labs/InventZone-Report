@@ -53,12 +53,12 @@ export default function Index() {
                   }
                 />
                 <textarea
-                  name="odpDeac"
+                  name="odpDesc"
                   placeholder="ODP Description"
                   className="w-4/5 h-[80px] px-3 py-4 text-[14px] rounded-md border"
-                  value={values.odpDeac}
+                  value={values.odpDesc}
                   onChange={(e) =>
-                    setValues({ ...values, odpDeac: e.target.value })
+                    setValues({ ...values, odpDesc: e.target.value })
                   }
                 />
               </div>
