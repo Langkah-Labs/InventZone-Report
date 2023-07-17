@@ -58,8 +58,9 @@ export const useNFC = () => {
   const submitHandler = async (e: any) => {
     if (!id) {
       await addHandler(e);
+    } else {
+      await updateHandler(id);
     }
-    await updateHandler(id);
   };
 
   const addHandler = async (e: any) => {
@@ -120,7 +121,13 @@ export const useNFC = () => {
     }).then(async (willDelete) => {
       if (willDelete) {
         setIsLoading(true);
-        await api.deleteDocument(Server.databaseID, collectionId, id);
+        await api.deleteDocument(Server.databaseID, collectionId, id).then(() =>
+          swal({
+            title: "Deleted!",
+            text: "Poof! Your record has been deleted!",
+            icon: "success",
+          }).then(() => window.location.reload())
+        );
       } else {
         swal("Your record is safe!");
       }

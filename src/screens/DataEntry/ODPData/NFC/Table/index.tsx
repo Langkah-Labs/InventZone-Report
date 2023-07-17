@@ -39,7 +39,7 @@ export default function Index() {
           <button
             className="rounded text-red-500 px-4 flex items-center justify-center gap-1 hover:opacity-75 hover:transition-opacity"
             onClick={() => {
-              deleteHandler("347GSFEFO7888BNBNB");
+              deleteHandler(`${record.$id}`);
             }}
           >
             <MdDeleteForever />
