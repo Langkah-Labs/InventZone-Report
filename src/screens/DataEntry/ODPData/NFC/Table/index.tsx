@@ -15,7 +15,6 @@ interface DataType {
 
 export default function Index() {
   const { isLoading, listValues, deleteHandler } = useNFC();
-  console.log(listValues);
 
   const columns: ColumnsType<DataType> = [
     {
@@ -31,7 +30,7 @@ export default function Index() {
       render: (_, record) => (
         <Space size="middle">
           <NavLink
-            to={`/data-entry/field-data/nfc/update/${record}`}
+            to={`/data-entry/field-data/nfc/update/${record.$id}`}
             className="rounded bg-green-500 px-4 flex justify-center items-center gap-1 hover:opacity-75 hover:transition-opacity"
           >
             <MdUpdate />

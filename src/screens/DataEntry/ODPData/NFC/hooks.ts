@@ -29,23 +29,27 @@ export const useNFC = () => {
   }
 
   useEffect(() => {
-    if (id) {
-      setValues({
-        nfcId: id,
-        nfcDesc: "",
-      });
-      setIsDisabled(true);
-    }
+    getSelectedNFC(id);
   }, [id]);
 
   useEffect(() => {
     getListNFC();
   }, []);
 
+  const getSelectedNFC = async (id: any) => {
+    if (id) {
+      const res = await api.listDocuments(Server.databaseID, collectionId, id);
+      setValues({
+        nfcId: res.documents[0].nfcId,
+        nfcDesc: res.documents[0].nfcDesc,
+      });
+      setIsDisabled(true);
+    }
+  };
+
   const getListNFC = async () => {
     const res = await api.listDocuments(Server.databaseID, collectionId);
     if (res) {
-      console.log(res);
       setListValues(res.documents);
       setIsLoading(false);
     }

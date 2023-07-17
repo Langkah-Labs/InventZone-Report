@@ -35,7 +35,7 @@ export default function Index() {
                   type="text"
                   name="nfcId"
                   placeholder="NFC ID"
-                  className="w-4/5 h-[44px] px-3 py-4 text-[14px] rounded-md border"
+                  className="w-4/5 h-[44px] px-3 py-4 text-[14px] rounded-md border disabled:bg-softwhite disabled:border-softwhite"
                   value={values.nfcId}
                   onChange={(e) =>
                     setValues({ ...values, nfcId: e.target.value })
