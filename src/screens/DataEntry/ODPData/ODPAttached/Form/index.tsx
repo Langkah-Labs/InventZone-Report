@@ -9,7 +9,15 @@ import General from "../../../General";
 import Spinner from "../../../../../components/Spinner";
 
 export default function Index() {
-  const { isLoading, values, setValues, submitHandler } = useODPAttached();
+  const {
+    isLoading,
+    values,
+    listNFCValues,
+    listODPValues,
+    isDisabled,
+    setValues,
+    submitHandler,
+  } = useODPAttached();
 
   return (
     <>
@@ -24,31 +32,35 @@ export default function Index() {
               <div className="flex flex-col gap-4 mb-16">
                 <select
                   name="odpAttachedNFCId"
-                  className="w-4/5 h-[44px] px-3 text-[14px] rounded-md border"
+                  className="w-4/5 h-[44px] px-3 text-[14px] rounded-md border disabled:bg-softwhite disabled:border-softwhite"
                   onChange={(e) =>
                     setValues({ ...values, odpAttachedNFCId: e.target.value })
                   }
+                  disabled={isDisabled}
                 >
                   <option value="" disabled selected>
                     Select your NFC ID
                   </option>
-                  <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
-                  <option value="fiat">Fiat</option>
+                  {listNFCValues.map((item: any, i: number) => (
+                    <option value={item.nfcId} key={i}>
+                      {item.nfcId}
+                    </option>
+                  ))}
                 </select>
                 <select
                   name="odpAttachedODPName"
-                  className="w-4/5 h-[44px] px-3 text-[14px] rounded-md border"
+                  className="w-4/5 h-[44px] px-3 text-[14px] rounded-md border disabled:bg-softwhite disabled:border-softwhite"
                   onChange={(e) =>
                     setValues({ ...values, odpAttachedODPName: e.target.value })
                   }
+                  disabled={isDisabled}
                 >
                   <option value="" disabled selected>
                     Select your ODP Name
                   </option>
-                  <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
-                  <option value="fiat">Fiat</option>
+                  {listODPValues.map((item: any, i: number) => (
+                    <option value={item.$id}>{item.name}</option>
+                  ))}
                 </select>
                 <textarea
                   name="odpAttachedDesc"

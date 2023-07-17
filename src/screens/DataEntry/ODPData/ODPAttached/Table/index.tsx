@@ -2,30 +2,26 @@ import React from "react";
 // dependencies
 import { NavLink } from "react-router-dom";
 import { MdDeleteForever, MdUpdate } from "react-icons/md";
-import { Space, Table, Tag } from "antd";
+import { Space, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useODPAttached } from "../hooks";
+import dayjs from "dayjs";
+// components
+import Spinner from "../../../../../components/Spinner";
 
 interface DataType {
-  key: string;
-  no: number;
+  $id: string;
   nfcId: string;
   name: string;
   capacity: string;
   attachedDate: string;
-  tags: string[];
+  $createdAt: string;
 }
 
 export default function Index() {
-  const { deleteHandler } = useODPAttached();
+  const { listValues, isLoading, deleteHandler } = useODPAttached();
 
   const columns: ColumnsType<DataType> = [
-    {
-      title: "No",
-      dataIndex: "no",
-      key: "no",
-      align: "center",
-    },
     {
       title: "NFC ID",
       dataIndex: "nfcId",
@@ -50,26 +46,8 @@ export default function Index() {
       dataIndex: "attachedDate",
       key: "attachedDate",
       align: "center",
-    },
-    {
-      title: "Tags",
-      key: "tags",
-      dataIndex: "tags",
-      align: "center",
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = "green";
-            if (tag === "NOT USED") {
-              color = "volcano";
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
+      render: (_, record) => (
+        <>{dayjs(record.$createdAt).format("DD-MM-YYYY")}</>
       ),
     },
     {
@@ -79,7 +57,7 @@ export default function Index() {
       render: (_, record) => (
         <Space size="middle">
           <NavLink
-            to={`/data-entry/field-data/odp-attached/update/1`}
+            to={`/data-entry/field-data/odp-attached/update/${record.$id}`}
             className="rounded bg-green-500 px-4 flex justify-center items-center gap-1 hover:opacity-75 hover:transition-opacity"
           >
             <MdUpdate />
@@ -88,7 +66,7 @@ export default function Index() {
           <button
             className="rounded text-red-500 px-4 flex items-center justify-center gap-1 hover:opacity-75 hover:transition-opacity"
             onClick={() => {
-              deleteHandler("347GSFEFO7888BNBNB");
+              deleteHandler(`${record.$id}`);
             }}
           >
             <MdDeleteForever />
@@ -99,39 +77,19 @@ export default function Index() {
     },
   ];
 
-  const data: DataType[] = [
-    {
-      key: "1",
-      no: 1,
-      nfcId: "347GSFEFO7888BNBNB",
-      name: "ODP - 1",
-      capacity: "8",
-      attachedDate: "4 July 2023",
-      tags: ["Utilized"],
-    },
-    {
-      key: "2",
-      no: 2,
-      nfcId: "GHTTWIW23402232390",
-      name: "ODP - 2",
-      capacity: "8",
-      attachedDate: "4 July 2023",
-      tags: ["NOT USED"],
-    },
-    {
-      key: "3",
-      no: 3,
-      nfcId: "FGTTFF90340287HY90",
-      name: "ODP - 3",
-      capacity: "8",
-      attachedDate: "4 July 2023",
-      tags: ["Utilized"],
-    },
-  ];
-
   return (
-    <div>
-      <Table columns={columns} dataSource={data} pagination={{ pageSize: 2 }} />
-    </div>
+    <>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div>
+          <Table
+            columns={columns}
+            dataSource={listValues}
+            pagination={{ pageSize: 2 }}
+          />
+        </div>
+      )}
+    </>
   );
 }

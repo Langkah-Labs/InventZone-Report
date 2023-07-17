@@ -1,80 +1,131 @@
 import { useState, useEffect } from "react";
 // dependencies
-import axios from "axios";
+import api from "../../../../api/api";
+import { Server } from "../../../../utils/config";
 import { useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
 export const useODPAttached = () => {
   const navigate = useNavigate();
   let { id } = useParams();
+  const collectionId = "odps";
   const [isLoading, setIsLoading] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [searchValues, setSearchValues] = useState<any>("");
   const [values, setValues] = useState<any>({
     odpAttachedNFCId: "",
     odpAttachedODPName: "",
-    odpAttachedDate: "",
     odpAttachedDesc: "",
   });
+  const [listValues, setListValues] = useState<any>([]);
+  const [listNFCValues, setListNFCValues] = useState<any>([]);
+  const [listODPValues, setListODPValues] = useState<any>([]);
 
   useEffect(() => {
-    if (id) {
-      setValues({
-        odpAttachedNFCId: id,
-        odpAttachedODPName: "",
-        odpAttachedDate: "",
-        odpAttachedDesc: "",
-      });
-    } else {
-      setIsLoading(false);
-    }
+    getSelectedODP(id);
   }, [id]);
 
   useEffect(() => {
-    setIsLoading(false);
+    getListNFC();
+    getListODP();
   }, []);
 
-  const submitHandler = async (e: any) => {
-    e.preventDefault();
+  const getSelectedODP = async (id: any) => {
     if (id) {
-      setIsLoading(true);
-      await axios
-        .put(`https://dummyjson.com/users/${id}`, values)
-        .then(function (response) {
-          swal({
-            title: "Success!",
-            text: "Your data has been updated!",
-            icon: "success",
-          }).then(() => {
-            navigate("/data-entry/field-data/odp-attached");
-          });
-        })
-        .catch(function (error) {
-          swal({
-            title: "Failed!",
-            text: "Oops, something went wrong",
-            icon: "error",
-          });
-        });
+      const res = await api.getDocument(Server.databaseID, collectionId, id);
+      setValues({
+        odpAttachedNFCId: res.nfcId,
+        odpAttachedODPName: res.name,
+        odpAttachedDesc: res.desc,
+      });
+      setIsDisabled(true);
+    }
+  };
+
+  const getListNFC = async () => {
+    const res = await api.listDocuments(Server.databaseID, "nfcs");
+    if (res) {
+      setListNFCValues(res.documents);
+
+      setIsLoading(false);
+    }
+  };
+
+  const getListODP = async () => {
+    const res = await api.listDocuments(Server.databaseID, "odps");
+    if (res) {
+      setListODPValues(res.documents);
+      setListValues(res.documents);
+
+      setIsLoading(false);
+    }
+  };
+
+  const submitHandler = async (e: any) => {
+    if (!id) {
+      await addHandler(e);
     } else {
-      setIsLoading(true);
-      await axios
-        .post("https://dummyjson.com/users/add", values)
-        .then(function (response) {
-          swal({
-            title: "Congratulations!",
-            text: "Your submission has been saved!",
-            icon: "success",
-          }).then(() => {
-            navigate("/data-entry/field-data/odp-attached");
-          });
-        })
-        .catch(function (error) {
-          swal({
-            title: "Failed!",
-            text: "Oops, something went wrong",
-            icon: "error",
-          });
-        });
+      await updateHandler(id);
+    }
+  };
+
+  const addHandler = async (e: any) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const val = {
+        nfcId: values.odpAttachedNFCId,
+        desc: values.odpAttachedDesc,
+      };
+
+      await api.updateDocument(
+        Server.databaseID,
+        collectionId,
+        values.odpAttachedODPName,
+        val
+      );
+      swal({
+        title: "Congratulations!",
+        text: "Your submission has been saved!",
+        icon: "success",
+      }).then(() => {
+        setIsLoading(false);
+        navigate("/data-entry/field-data/odp-attached");
+      });
+    } catch (e) {
+      console.error(e);
+      swal({
+        title: "Failed!",
+        text: "Oops, something went wrong",
+        icon: "error",
+      });
+      setIsLoading(false);
+    }
+  };
+
+  const updateHandler = async (id: any) => {
+    setIsLoading(true);
+    try {
+      const val = {
+        desc: values.odpAttachedDesc,
+      };
+      await api.updateDocument(Server.databaseID, collectionId, id, val);
+      swal({
+        title: "Congratulations!",
+        text: "Your submission has been saved!",
+        icon: "success",
+      }).then(() => {
+        setIsLoading(false);
+        navigate("/data-entry/field-data/odp-attached");
+      });
+    } catch (e) {
+      console.error(e);
+      swal({
+        title: "Failed!",
+        text: "Oops, something went wrong",
+        icon: "error",
+      });
+      setIsLoading(false);
     }
   };
 
@@ -88,7 +139,7 @@ export const useODPAttached = () => {
     }).then(async (willDelete) => {
       if (willDelete) {
         setIsLoading(true);
-        await axios.delete(`https://dummyjson.com/users/${id}`).then(() =>
+        await api.deleteDocument(Server.databaseID, collectionId, id).then(() =>
           swal({
             title: "Deleted!",
             text: "Poof! Your record has been deleted!",
@@ -100,10 +151,15 @@ export const useODPAttached = () => {
       }
     });
   };
+  
   return {
     isLoading,
     values,
     searchValues,
+    listNFCValues,
+    listODPValues,
+    listValues,
+    isDisabled,
     setValues,
     submitHandler,
     deleteHandler,
