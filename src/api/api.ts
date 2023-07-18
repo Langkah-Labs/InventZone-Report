@@ -1,4 +1,4 @@
-import { Client as Appwrite, Databases, Account } from "appwrite";
+import { Client as Appwrite, Databases, Account, Teams } from "appwrite";
 import { Server } from "../utils/config";
 
 let api: any = {
@@ -14,8 +14,9 @@ let api: any = {
       .setProject(Server.project ? Server.project : "");
     const account = new Account(appwrite);
     const database = new Databases(appwrite);
+    const teams = new Teams(appwrite);
 
-    api.sdk = { database, account };
+    api.sdk = { database, account, teams };
     return api.sdk;
   },
 
@@ -36,6 +37,10 @@ let api: any = {
     return api.provider().account.deleteSession("current");
   },
 
+  create: (teamsId: any, teamsName: any, roles?:any) => {
+    return api.provider().teams.create(teamsId, teamsName, roles);
+  },
+
   createDocument: (
     databaseId: any,
     collectionId: any,
@@ -47,8 +52,10 @@ let api: any = {
       .database.createDocument(databaseId, collectionId, documentId, data);
   },
 
-  getDocument: (databaseId: any, collectionId: any, documentId:any) => {
-    return api.provider().database.getDocument(databaseId, collectionId, documentId);
+  getDocument: (databaseId: any, collectionId: any, documentId: any) => {
+    return api
+      .provider()
+      .database.getDocument(databaseId, collectionId, documentId);
   },
 
   listDocuments: (databaseId: any, collectionId: any) => {

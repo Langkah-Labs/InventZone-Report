@@ -2,50 +2,46 @@ import { useState, useEffect } from "react";
 // dependencies
 import api from "../../../../api/api";
 import { Server } from "../../../../utils/config";
-import { useParams, useNavigate } from "react-router-dom";
 import { generateUniqueId } from "../../../../utils/constants";
+import { useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
-export const useODP = () => {
+export const useRole = () => {
   const navigate = useNavigate();
   let { id } = useParams();
-  const collectionId = "odps";
+  const collectionId = "roles";
   const [isLoading, setIsLoading] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [searchValues, setSearchValues] = useState<any>("");
-  const [values, setValues] = useState<any>({
-    odpId: "",
-    odpName: "",
-    odpCapacity: "",
-    odpOpticalPower: "",
-    odpDesc: "",
-  });
   const [listValues, setListValues] = useState<any>([]);
+  const [values, setValues] = useState<any>({
+    roleName: "",
+    roleDesc: "",
+  });
 
   useEffect(() => {
-    getSelectedODP(id);
+    getSelectedRoles(id);
   }, [id]);
 
   useEffect(() => {
-    getListODP();
+    getListRoles();
   }, []);
 
-  const getSelectedODP = async (id: any) => {
+  const getSelectedRoles = async (id: any) => {
     if (id) {
       const res = await api.getDocument(Server.databaseID, collectionId, id);
       setValues({
-        odpName: res.name,
-        odpCapacity: res.capacity,
-        odpOpticalPower: res.opticalPower,
-        odpDesc: res.desc,
+        roleName: res.name,
+        roleDesc: res.desc,
       });
+      setIsDisabled(true);
     }
   };
 
-  const getListODP = async () => {
+  const getListRoles = async () => {
     const res = await api.listDocuments(Server.databaseID, collectionId);
     if (res) {
       setListValues(res.documents);
-
       setIsLoading(false);
     }
   };
@@ -64,11 +60,10 @@ export const useODP = () => {
     try {
       const id = generateUniqueId();
       const val = {
-        name: values.odpName,
-        capacity: values.odpCapacity,
-        opticalPower: values.odpOpticalPower,
-        desc: values.odpDesc,
+        name: values.roleName,
+        desc: values.roleDesc,
       };
+      console.log(val);
 
       await api.createDocument(Server.databaseID, collectionId, id, val);
       swal({
@@ -77,7 +72,7 @@ export const useODP = () => {
         icon: "success",
       }).then(() => {
         setIsLoading(false);
-        navigate("/data-entry/field-data/odp");
+        navigate("/data-entry/user-data/role");
       });
     } catch (e) {
       console.error(e);
@@ -94,11 +89,10 @@ export const useODP = () => {
     setIsLoading(true);
     try {
       const val = {
-        name: values.odpName,
-        capacity: values.odpCapacity,
-        opticalPower: values.odpOpticalPower,
-        desc: values.odpDesc,
+        name: values.roleName,
+        desc: values.roleDesc,
       };
+      console.log(val);
       await api.updateDocument(Server.databaseID, collectionId, id, val);
       swal({
         title: "Congratulations!",
@@ -106,7 +100,7 @@ export const useODP = () => {
         icon: "success",
       }).then(() => {
         setIsLoading(false);
-        navigate("/data-entry/field-data/odp");
+        navigate("/data-entry/user-data/role");
       });
     } catch (e) {
       console.error(e);
@@ -141,12 +135,12 @@ export const useODP = () => {
       }
     });
   };
-
   return {
     isLoading,
     values,
     searchValues,
     listValues,
+    isDisabled,
     setValues,
     submitHandler,
     deleteHandler,
@@ -154,4 +148,4 @@ export const useODP = () => {
   };
 };
 
-export default useODP;
+export default useRole;

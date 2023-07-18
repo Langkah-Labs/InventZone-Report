@@ -1,117 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 // dependencies
-import axios from "axios";
 // import _ from "lodash";
 import { NavLink } from "react-router-dom";
-import { MdDeleteForever, MdUpdate } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
-import swal from "sweetalert";
-import { Space, Table, Tag } from "antd";
-import type { ColumnsType } from "antd/es/table";
+import { useRole } from "./hooks";
 // components
 import General from "../../General";
 import Spinner from "../../../../components/Spinner";
-
-interface DataType {
-  key: string;
-  no: number;
-  name: string;
-}
+import Table from "./Table";
 
 export default function Index() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [searchValues, setSearchValues] = useState<any>("");
-
-  const columns: ColumnsType<DataType> = [
-    {
-      title: "No",
-      dataIndex: "no",
-      key: "no",
-      align: "center",
-    },
-    {
-      title: "Role Name",
-      dataIndex: "name",
-      key: "name",
-      align: "center",
-    },
-    {
-      title: "Action",
-      key: "action",
-      align: "center",
-      render: (_, record) => (
-        <Space size="middle">
-          <NavLink
-            to={`/data-entry/user-data/role/update/1`}
-            className="rounded bg-green-500 px-4 flex justify-center items-center gap-1 hover:opacity-75 hover:transition-opacity"
-          >
-            <MdUpdate />
-            Update
-          </NavLink>
-          <button
-            className="rounded text-red-500 px-4 flex items-center justify-center gap-1 hover:opacity-75 hover:transition-opacity"
-            onClick={() => {
-              deleteHandler("1");
-            }}
-          >
-            <MdDeleteForever />
-            <b>Delete</b>
-          </button>
-        </Space>
-      ),
-    },
-  ];
-
-  const data: DataType[] = [
-    {
-      key: "1",
-      no: 1,
-      name: "Administrator",
-    },
-    {
-      key: "2",
-      no: 2,
-      name: "Super Admin",
-    },
-    {
-      key: "3",
-      no: 3,
-      name: "Staff",
-    },
-    {
-      key: "4",
-      no: 4,
-      name: "Field - Opearation",
-    },
-  ];
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
-
-  const deleteHandler = async (id: string) => {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this record!",
-      icon: "warning",
-      buttons: ["Cancel", "Yes"],
-      dangerMode: true,
-    }).then(async (willDelete) => {
-      if (willDelete) {
-        setIsLoading(true);
-        await axios.delete(`https://dummyjson.com/users/${id}`).then(() =>
-          swal({
-            title: "Deleted!",
-            text: "Poof! Your record has been deleted!",
-            icon: "success",
-          }).then(() => window.location.reload())
-        );
-      } else {
-        swal("Your record is safe!");
-      }
-    });
-  };
-
+  const { isLoading, searchValues, setSearchValues } = useRole();
   return (
     <>
       {isLoading ? (
@@ -137,13 +36,7 @@ export default function Index() {
                 </div>
               </NavLink>
             </div>
-            <div>
-              <Table
-                columns={columns}
-                dataSource={data}
-                pagination={{ pageSize: 2 }}
-              />
-            </div>
+            <Table />
           </div>
         </General>
       )}
