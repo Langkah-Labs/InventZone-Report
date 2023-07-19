@@ -37,19 +37,46 @@ let api: any = {
     return api.provider().account.deleteSession("current");
   },
 
-  create: (teamsId: any, teamsName: any, roles?:any) => {
-    return api.provider().teams.create(teamsId, teamsName, roles);
+  create: (teamsName: any) => {
+    return api.provider().teams.create("unique()", teamsName);
   },
 
-  createDocument: (
-    databaseId: any,
-    collectionId: any,
-    documentId: any,
-    data: any
+  list: () => {
+    return api.provider().teams.list();
+  },
+
+  get: (teamsId: any) => {
+    return api.provider().teams.get(teamsId);
+  },
+
+  updateName: (teamsId: any, teamsName: any) => {
+    return api.provider().teams.updateName(teamsId, teamsName);
+  },
+
+  delete: (teamsId: any) => {
+    return api.provider().teams.delete(teamsId);
+  },
+
+  createMembership: (
+    teamsId: any,
+    roles: any,
+    url: any,
+    email?: any,
+    userId?: any,
+    phone?: any,
+    name?: any
   ) => {
+    console.log(url);
+    
     return api
       .provider()
-      .database.createDocument(databaseId, collectionId, documentId, data);
+      .teams.createMembership(teamsId, roles, url, userId);
+  },
+
+  createDocument: (databaseId: any, collectionId: any, data: any) => {
+    return api
+      .provider()
+      .database.createDocument(databaseId, collectionId, "unique()", data);
   },
 
   getDocument: (databaseId: any, collectionId: any, documentId: any) => {

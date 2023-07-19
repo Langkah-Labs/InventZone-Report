@@ -15,6 +15,7 @@ import { BiLogOut } from "react-icons/bi";
 import { HiDotsVertical } from "react-icons/hi";
 import { GrDatabase, GrStatusInfo } from "react-icons/gr";
 import { AiOutlineBoxPlot } from "react-icons/ai";
+import { RiTeamFill } from "react-icons/ri";
 
 export default function Index() {
   const { collapseSidebar } = useProSidebar();
@@ -79,6 +80,12 @@ export default function Index() {
             </MenuItem>
           </SubMenu>
           <SubMenu label="User Data" icon={<BsFillPeopleFill />}>
+            <MenuItem
+              icon={<RiTeamFill />}
+              component={<NavLink to="/data-entry/user-data/team" />}
+            >
+              Team
+            </MenuItem>
             <MenuItem
               icon={<GrStatusInfo />}
               component={<NavLink to="/data-entry/user-data/role" />}

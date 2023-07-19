@@ -1,6 +1,7 @@
 import React from "react";
 // dependencies
 import { useLogin } from "./hooks";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 // components
 import Spinner from "../../components/Spinner";
 // assets
@@ -8,7 +9,14 @@ import s from "./login.module.scss";
 import { icon_img } from "../../utils/constants";
 
 export default function Index() {
-  const { values, isLoading, setValues, loginHandler } = useLogin();
+  const {
+    values,
+    isLoading,
+    passwordType,
+    setValues,
+    loginHandler,
+    togglePassword,
+  } = useLogin();
 
   return (
     <>
@@ -50,15 +58,29 @@ export default function Index() {
                         setValues({ ...values, username: e.target.value })
                       }
                     />
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                      value={values.password}
-                      onChange={(e) =>
-                        setValues({ ...values, password: e.target.value })
-                      }
-                    />
+                    <div className="flex items-center">
+                      <input
+                        type={passwordType}
+                        name="password"
+                        placeholder="Password"
+                        value={values.password}
+                        onChange={(e) =>
+                          setValues({ ...values, password: e.target.value })
+                        }
+                      />
+                      <div>
+                        <button
+                          className="btn btn-outline-primary"
+                          onClick={togglePassword}
+                        >
+                          {passwordType === "password" ? (
+                            <AiOutlineEyeInvisible />
+                          ) : (
+                            <AiOutlineEye />
+                          )}
+                        </button>
+                      </div>
+                    </div>
                   </div>
                   <div className="flex mt-8">
                     <button

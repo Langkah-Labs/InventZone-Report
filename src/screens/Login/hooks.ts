@@ -12,6 +12,7 @@ interface FormData {
 export const useLogin = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordType, setPasswordType] = useState("password");
   const [values, setValues] = useState<FormData>({
     username: "",
     password: "",
@@ -39,11 +40,22 @@ export const useLogin = () => {
     }
   };
 
+  const togglePassword = (e:any) => {
+    e.preventDefault()
+    if (passwordType === "password") {
+      setPasswordType("text");
+      return;
+    }
+    setPasswordType("password");
+  };
+
   return {
     values,
     isLoading,
+    passwordType,
     setValues,
     loginHandler,
+    togglePassword
   };
 };
 

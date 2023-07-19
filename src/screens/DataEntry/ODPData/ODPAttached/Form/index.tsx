@@ -36,6 +36,7 @@ export default function Index() {
                   onChange={(e) =>
                     setValues({ ...values, odpAttachedNFCId: e.target.value })
                   }
+                  value={values.odpAttachedNFCId}
                   disabled={isDisabled}
                 >
                   <option value="" disabled selected>
@@ -53,13 +54,14 @@ export default function Index() {
                   onChange={(e) =>
                     setValues({ ...values, odpAttachedODPName: e.target.value })
                   }
+                  value={values.odpAttachedODPName}
                   disabled={isDisabled}
                 >
                   <option value="" disabled selected>
                     Select your ODP Name
                   </option>
                   {listODPValues.map((item: any, i: number) => (
-                    <option value={item.$id}>{item.name}</option>
+                    <option value={item.$id} key={i}>{item.name}</option>
                   ))}
                 </select>
                 <textarea

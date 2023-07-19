@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import api from "../../../../api/api";
 import { Server } from "../../../../utils/config";
 import { useParams, useNavigate } from "react-router-dom";
-import { generateUniqueId } from "../../../../utils/constants";
 import swal from "sweetalert";
 
 export const useODP = () => {
@@ -45,7 +44,6 @@ export const useODP = () => {
     const res = await api.listDocuments(Server.databaseID, collectionId);
     if (res) {
       setListValues(res.documents);
-
       setIsLoading(false);
     }
   };
@@ -62,7 +60,6 @@ export const useODP = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const id = generateUniqueId();
       const val = {
         name: values.odpName,
         capacity: values.odpCapacity,
@@ -70,7 +67,7 @@ export const useODP = () => {
         desc: values.odpDesc,
       };
 
-      await api.createDocument(Server.databaseID, collectionId, id, val);
+      await api.createDocument(Server.databaseID, collectionId, val);
       swal({
         title: "Congratulations!",
         text: "Your submission has been saved!",

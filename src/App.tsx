@@ -18,10 +18,12 @@ import ODPForm from "./screens/DataEntry/ODPData/ODP/Form";
 import ODPList from "./screens/DataEntry/ODPData/ODP";
 import ODPAttachedForm from "./screens/DataEntry/ODPData/ODPAttached/Form";
 import ODPAttachedList from "./screens/DataEntry/ODPData/ODPAttached";
-import RoleForm from "./screens/DataEntry/UserData/Role/RoleForm";
+import RoleForm from "./screens/DataEntry/UserData/Role/Form";
 import RoleList from "./screens/DataEntry/UserData/Role";
-import UserForm from "./screens/DataEntry/UserData/User/UserForm";
+import UserForm from "./screens/DataEntry/UserData/User/Form";
 import UserList from "./screens/DataEntry/UserData/User";
+import TeamForm from "./screens/DataEntry/UserData/Team/Form";
+import TeamList from "./screens/DataEntry/UserData/Team";
 
 function App() {
   return (
@@ -94,6 +96,15 @@ function App() {
             <Route
               path="/data-entry/user-data/user/update/:id"
               element={<UserForm />}
+            />
+            <Route path="/data-entry/user-data/team" element={<TeamList />} />
+            <Route
+              path="/data-entry/user-data/team/add"
+              element={<TeamForm />}
+            />
+            <Route
+              path="/data-entry/user-data/team/update/:id"
+              element={<TeamForm />}
             />
           </Routes>
         </Router>

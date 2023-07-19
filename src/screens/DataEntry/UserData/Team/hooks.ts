@@ -1,46 +1,42 @@
 import { useState, useEffect } from "react";
 // dependencies
 import api from "../../../../api/api";
-import { Server } from "../../../../utils/config";
 import { useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
-export const useNFC = () => {
+export const useTeam = () => {
   const navigate = useNavigate();
   let { id } = useParams();
-  const collectionId = "nfcs";
   const [isLoading, setIsLoading] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
   const [searchValues, setSearchValues] = useState<any>("");
-  const [values, setValues] = useState<any>({
-    nfcId: "",
-    nfcDesc: "",
-  });
   const [listValues, setListValues] = useState<any>([]);
+  const [values, setValues] = useState<any>({
+    teamName: "",
+  });
 
   useEffect(() => {
-    getSelectedNFC(id);
+    getSelectedTeam(id);
   }, [id]);
 
   useEffect(() => {
-    getListNFC();
+    getListTeam();
   }, []);
 
-  const getSelectedNFC = async (id: any) => {
+  const getSelectedTeam = async (id: any) => {
     if (id) {
-      const res = await api.getDocument(Server.databaseID, collectionId, id);
+      const res = await api.get(id);
       setValues({
-        nfcId: res.nfcId,
-        nfcDesc: res.nfcDesc,
+        teamName: res.name,
       });
       setIsDisabled(true);
     }
   };
 
-  const getListNFC = async () => {
-    const res = await api.listDocuments(Server.databaseID, collectionId);
+  const getListTeam = async () => {
+    const res = await api.list();
     if (res) {
-      setListValues(res.documents);
+      setListValues(res.teams);
       setIsLoading(false);
     }
   };
@@ -57,14 +53,16 @@ export const useNFC = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await api.createDocument(Server.databaseID, collectionId, values);
+      console.log(values);
+
+      await api.create(values.teamName);
       swal({
         title: "Congratulations!",
         text: "Your submission has been saved!",
         icon: "success",
       }).then(() => {
         setIsLoading(false);
-        navigate("/data-entry/field-data/nfc");
+        navigate("/data-entry/user-data/team");
       });
     } catch (e) {
       console.error(e);
@@ -79,15 +77,16 @@ export const useNFC = () => {
 
   const updateHandler = async (id: any) => {
     setIsLoading(true);
+
     try {
-      await api.updateDocument(Server.databaseID, collectionId, id, values);
+      await api.updateName(id, values.teamName);
       swal({
         title: "Congratulations!",
         text: "Your submission has been saved!",
         icon: "success",
       }).then(() => {
         setIsLoading(false);
-        navigate("/data-entry/field-data/nfc");
+        navigate("/data-entry/user-data/team");
       });
     } catch (e) {
       console.error(e);
@@ -110,7 +109,7 @@ export const useNFC = () => {
     }).then(async (willDelete) => {
       if (willDelete) {
         setIsLoading(true);
-        await api.deleteDocument(Server.databaseID, collectionId, id).then(() =>
+        await api.delete(id).then(() =>
           swal({
             title: "Deleted!",
             text: "Poof! Your record has been deleted!",
@@ -135,4 +134,4 @@ export const useNFC = () => {
   };
 };
 
-export default useNFC;
+export default useTeam;

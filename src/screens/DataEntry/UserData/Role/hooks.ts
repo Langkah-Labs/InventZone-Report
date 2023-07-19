@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 // dependencies
 import api from "../../../../api/api";
 import { Server } from "../../../../utils/config";
-import { generateUniqueId } from "../../../../utils/constants";
 import { useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
@@ -58,14 +57,13 @@ export const useRole = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const id = generateUniqueId();
       const val = {
         name: values.roleName,
         desc: values.roleDesc,
       };
       console.log(val);
 
-      await api.createDocument(Server.databaseID, collectionId, id, val);
+      await api.createDocument(Server.databaseID, collectionId, val);
       swal({
         title: "Congratulations!",
         text: "Your submission has been saved!",
