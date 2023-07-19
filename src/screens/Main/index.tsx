@@ -38,36 +38,38 @@ export default function Index() {
             <div className="h-full flex justify-center items-center mt-4">
               <div className="flex flex-col itemx-center">
                 <div className="flex flex-col items-center">
-                  <h2 className="text-[48px] text-primary uppercase tracking-wide">
+                  <h2 className="text-[48px] text-primary uppercase tracking-wide sm:text-[32px] xs:text-[32px]">
                     Field Operation Report
                   </h2>
-                  <h5 className="text-[12px] text-softwhite">
-                    Reporting all information about ODP installed for better
-                    decision making.
-                  </h5>
                 </div>
-                <div className="flex flex-col items-center gap-8 mt-4">
-                  <div className="flex items-center justify-center gap-4">
-                    <NavLink
-                      to="/report/general/installed-odp"
-                      className="flex items-center justify-center w-36 h-10 border border-primary rounded-md text-primary transition hover:bg-primary hover:text-white"
-                    >
-                      General Report
-                    </NavLink>
-                    <NavLink
-                      to="/report/field-data/list-odp"
-                      className="flex items-center justify-center w-36 h-10 border border-primary rounded-md text-primary transition hover:bg-primary hover:text-white"
-                    >
-                      Field Data
-                    </NavLink>
+                <div className="flex flex-col items-center gap-8 mt-4 sm:gap-4 xs:gap-4 sm:mt-6 xs:mt-6">
+                  <div className="flex flex-col gap-2 items-center text-center">
+                    <h5 className="text-[12px] text-softwhite sm:text-[10px] xs:text-[10px]">
+                      Reporting all information about ODP installed for better
+                      decision making.
+                    </h5>
+                    <div className="flex items-center justify-center gap-4">
+                      <NavLink
+                        to="/report/general/installed-odp"
+                        className="flex items-center justify-center w-36 h-10 border border-primary rounded-md text-primary transition sm:text-[13px] xs:text-[13px] sm:w-32 xs:w-32 hover:bg-primary hover:text-white"
+                      >
+                        General Report
+                      </NavLink>
+                      <NavLink
+                        to="/report/field-data/list-odp"
+                        className="flex items-center justify-center w-36 h-10 border border-primary rounded-md text-primary transition sm:text-[13px] xs:text-[13px] sm:w-32 xs:w-32 hover:bg-primary hover:text-white"
+                      >
+                        Field Data
+                      </NavLink>
+                    </div>
                   </div>
-                  <div className="flex flex-col gap-2 items-center">
-                    <h5 className="text-[12px] text-softwhite">
+                  <div className="flex flex-col gap-2 items-center text-center">
+                    <h5 className="text-[12px] text-softwhite  sm:text-[10px] xs:text-[10px]">
                       Create all your necessary data to support your operational
                     </h5>
                     <NavLink
                       to="/data-entry/field-data"
-                      className="flex items-center justify-center w-40 h-10 border border-error rounded-md text-error transition hover:bg-error hover:text-white"
+                      className="flex items-center justify-center w-40 h-10 border border-error rounded-md text-error transition sm:text-[13px] xs:text-[13px] sm:w-32 xs:w-32 hover:bg-error hover:text-white"
                     >
                       Create New Data
                     </NavLink>
