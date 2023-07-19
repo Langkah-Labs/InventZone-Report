@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 // dependencies
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 import { useMain } from "./hooks";
+import { GlobalContext } from "../../context/GlobalContext";
 // components
 import Spinner from "../../components/Spinner";
 // assets
@@ -11,6 +12,11 @@ import { icon_img } from "../../utils/constants";
 
 export default function Index() {
   const { isLoading, logoutHandler } = useMain();
+  const { checkSession } = useContext(GlobalContext);
+
+  if (!checkSession) {
+    return <Navigate to={"/login"} />;
+  }
   return (
     <>
       {isLoading ? (

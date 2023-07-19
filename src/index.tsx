@@ -3,6 +3,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+// Utils
+import { GlobalContextProvider } from "./context/GlobalContext";
 // components
 import App from "./App";
 // assets
@@ -21,7 +23,9 @@ const client = new ApolloClient({
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <GlobalContextProvider>
+        <App />
+      </GlobalContextProvider>
     </ApolloProvider>
   </React.StrictMode>
 );
