@@ -20,7 +20,11 @@ export default function Index() {
 
   return (
     <div className="flex h-screen text-[#0B4B31]">
-      <Sidebar breakPoint="sm" transitionDuration={800}>
+      <Sidebar
+        transitionDuration={800}
+        rootStyles={{ height: "100%" }}
+        defaultCollapsed={true}
+      >
         <Menu
           menuItemStyles={{
             button: ({ level, active, disabled }) => {
@@ -50,6 +54,8 @@ export default function Index() {
               <b>Menu</b>
             </h1>
           </MenuItem>
+          <div className="sm:hidden xs:hidden">
+
           <MenuItem
             icon={<MdDomain />}
             component={<NavLink to="/" />}
@@ -79,6 +85,7 @@ export default function Index() {
               List of ODP
             </MenuItem>
           </SubMenu>
+          </div>
           <MenuItem
             icon={<BiLogOut />}
             style={{ marginTop: "40px" }}

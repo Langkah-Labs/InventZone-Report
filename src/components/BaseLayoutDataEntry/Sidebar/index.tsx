@@ -22,7 +22,11 @@ export default function Index() {
 
   return (
     <div className="flex h-screen text-[#0B4B31]">
-      <Sidebar breakPoint="sm" transitionDuration={800}>
+      <Sidebar
+        transitionDuration={800}
+        style={{ height: "100vh" }}
+        defaultCollapsed={true}
+      >
         <Menu
           menuItemStyles={{
             button: ({ level, active, disabled }) => {
