@@ -26,8 +26,8 @@ export default function Index() {
         </div>
       ) : (
         <div className={`${s.login} h-screen flex justify-center items-center`}>
-          <div className="flex justify-center">
-            <div className={`${s.login_left} w-60 rounded-l-md`}></div>
+          <div className="flex justify-center sm:flex-col xs:flex-col">
+            <div className={`${s.login_left} w-60 rounded-l- sm:h-16 xs:h-16 sm:w-full xs:w-full`}></div>
             <div className="w-96 px-8 py-12 flex flex-col">
               <div className="p-0 w-2/5">
                 <img src={icon_img} alt="invent-zone-icon" className="w-4/6" />
