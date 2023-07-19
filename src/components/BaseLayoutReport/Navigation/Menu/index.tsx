@@ -105,26 +105,13 @@ const itemsMobile: MenuProps["items"] = [
       },
       {
         type: "group",
-        label: "General Report",
-        key: "general",
+        label: "Field Data",
+        key: "field",
         children: [
           {
-            label: (
-              <NavLink to="/report/general/installed-odp">
-                Installed ODP
-              </NavLink>
-            ),
-            key: "installed",
-            icon: <IoMdAttach />,
-          },
-          {
-            label: (
-              <NavLink to="/report/general/dismantle-odp">
-                Dismantle ODP
-              </NavLink>
-            ),
-            key: "dismantle",
-            icon: <MdLogout />,
+            label: <NavLink to="/report/field-data/list-odp">List of ODP</NavLink>,
+            key: "listODP",
+            icon: <HiDotsVertical />,
           },
         ],
       },

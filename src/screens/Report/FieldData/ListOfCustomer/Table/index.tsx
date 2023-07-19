@@ -82,7 +82,7 @@ export default function Index() {
     },
   ];
   return (
-    <div>
+    <div className="overflow-scroll">
       <Table
         columns={columns}
         dataSource={data}

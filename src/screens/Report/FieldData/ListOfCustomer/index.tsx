@@ -42,7 +42,9 @@ export default function Index() {
                 Location: <b>Pamulang, South Tangerang</b>
               </li>
             </div>
-            <Table />
+            <div className="w-full">
+              <Table />
+            </div>
           </div>
         </FieldData>
       )}

@@ -19,7 +19,7 @@ export default function Index() {
       ) : (
         <General>
           <div>
-            <div className="flex justify-center items-center gap-4">
+            <div className="flex justify-center items-center gap-4 sm:flex-col xs:flex-col">
               <SumamaryCard
                 title="Total ODP"
                 description="Number of ALL ODP"
@@ -38,16 +38,16 @@ export default function Index() {
             </div>
             <div className="mt-12 flex flex-col gap-12 rounded-md shadow-md border border-softwhite p-12">
               <div>
-                <h2 className="text-[28px] underline underline-offset-4">
+                <h2 className="text-[28px] underline underline-offset-4 sm:text-[20px] xs:text-[20px]">
                   <b>ODP Moving Average</b>
                 </h2>
-                <h5>
+                <h5 className="sm:text-[10px] xs:text-[10px]">
                   The movement of the <b>number of ODP</b> every time based on
                   the amount of demolition
                 </h5>
               </div>
               <div className="flex justify-center items-center gap-2">
-                <div className="flex flex-col gap-2 w-6/12">
+                <div className="flex flex-col gap-2 w-full">
                   <BarChart />
                 </div>
               </div>

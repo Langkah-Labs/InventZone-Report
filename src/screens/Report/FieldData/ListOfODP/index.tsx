@@ -26,12 +26,14 @@ export default function Index() {
                 type="text"
                 name="searchValues"
                 placeholder="Search.."
-                className="w-1/5 h-[44px] px-3 py-4 text-[14px] rounded-md border"
+                className="w-1/5 h-[44px] px-3 py-4 text-[14px] rounded-md border sm:w-2/5 xs:w-2/5"
                 value={searchValues}
                 onChange={(e) => setSearchValues(e.target.value)}
               />
             </div>
-            <Table />
+            <div className="w-full">
+              <Table />
+            </div>
           </div>
         </FieldData>
       )}

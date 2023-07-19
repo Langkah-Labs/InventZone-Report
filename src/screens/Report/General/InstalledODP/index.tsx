@@ -20,7 +20,7 @@ export default function Index() {
       ) : (
         <General>
           <div>
-            <div className="flex justify-center items-center gap-4">
+            <div className="flex justify-center items-center gap-4 sm:flex-col xs:flex-col">
               <SummaryCard
                 title="Total ODP"
                 description="Number of All ODP"
@@ -39,21 +39,21 @@ export default function Index() {
             </div>
             <div className="mt-12 flex flex-col gap-12 rounded-md shadow-md border border-softwhite p-12">
               <div>
-                <h2 className="text-[28px] underline underline-offset-4">
+                <h2 className="text-[28px] underline underline-offset-4 sm:text-[20px] xs:text-[20px]">
                   <b>ODP Classification</b>
                 </h2>
-                <h5>
+                <h5 className="sm:text-[10px] xs:text-[10px]">
                   ODP has been classified based on the amount of&nbsp;
                   <b>port usage</b> that has been used
                 </h5>
               </div>
-              <div className="flex justify-center items-start gap-2">
-                <div className="w-6/12">
+              <div className="flex justify-center items-start gap-2 sm:flex-col xs:flex-col">
+                <div className="w-6/12 sm:w-full xs:w-full">
                   <PieChart />
                 </div>
-                <div className="flex flex-col gap-2 w-4/12 border border-softwhite rounded-md p-4 text-[12px]">
+                <div className="flex flex-col gap-2 w-4/12 border border-softwhite rounded-md p-4 text-[12px] sm:w-full xs:w-full">
                   <h2 className="underline underline-offset-4">Notes:</h2>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 sm:text-[6px] xs:text-[6px]">
                     <div className="flex flex-col gap-2 font-bold">
                       <li>High Port: </li>
                       <li>Medium Port: </li>
@@ -69,7 +69,7 @@ export default function Index() {
               </div>
               <div className="flex flex-col gap-4">
                 <div>
-                  <h5>
+                  <h5 className="sm:text-[10px] xs:text-[10px]">
                     ODP Classification has been&nbsp;
                     <b>mapped and visualized by using the icon</b> to get more
                     visualization information.

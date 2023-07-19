@@ -22,12 +22,13 @@ const option: EChartsOption = {
     trigger: "item",
   },
   legend: {
-    orient: "vertical",
+    orient: "horizontal",
     left: "left",
+    top: "bottom",
   },
   series: [
     {
-      name: "Access From",
+      name: "ODP Classification",
       type: "pie",
       radius: "50%",
       color: colorPalette,
@@ -45,7 +46,7 @@ const option: EChartsOption = {
       },
     },
   ],
-  height: '480px'
+  height: "400px",
 };
 
 export default function Index({ dataSource, isLoading }: Props) {
