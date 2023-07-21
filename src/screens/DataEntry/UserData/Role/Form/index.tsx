@@ -17,7 +17,7 @@ export default function Index() {
           <Spinner />
         </div>
       ) : (
-        <General title="NFC Data">
+        <General title="Role Data">
           <div>
             <form onSubmit={submitHandler}>
               <div className="flex flex-col gap-4 mb-16">

@@ -59,7 +59,7 @@ export default function index() {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href={`https://maps.google.com/?q=${location}`}
+            href={`https://www.google.com/maps?q=${location}`}
             className="text-error underline underline-offset-4"
           >
             View Location
