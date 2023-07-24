@@ -4,6 +4,7 @@ import api from "../../../../api/api";
 import { Server } from "../../../../utils/config";
 import { useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import { Query } from "appwrite";
 
 export const useODPAttached = () => {
   const navigate = useNavigate();
@@ -44,7 +45,9 @@ export const useODPAttached = () => {
   };
 
   const getListNFC = async () => {
-    const res = await api.listDocuments(Server.databaseID, "tags");
+    const res = await api.listDocuments(Server.databaseID, "tags", [
+      Query.equal("status", false),
+    ]);
     if (res) {
       setListNFCValues(res.documents);
 
@@ -53,7 +56,9 @@ export const useODPAttached = () => {
   };
 
   const getListODP = async () => {
-    const res = await api.listDocuments(Server.databaseID, "odps");
+    const res = await api.listDocuments(Server.databaseID, "odps", [
+      Query.isNotNull("nfcId"),
+    ]);
     if (res) {
       setListODPValues(res.documents);
       setListValues(res.documents);
@@ -74,7 +79,11 @@ export const useODPAttached = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await api.getDocument(Server.databaseID, "tags", values.nfcId);
+      const res = await api.getDocument(
+        Server.databaseID,
+        "tags",
+        values.nfcId
+      );
       const val = {
         nfcId: res.id,
         desc: values.desc,
@@ -82,19 +91,14 @@ export const useODPAttached = () => {
       const val2 = {
         status: true,
       };
-      
+
       await api.updateDocument(
         Server.databaseID,
         collectionId,
         values.name,
         val
       );
-      await api.updateDocument(
-        Server.databaseID,
-        "tags",
-        values.nfcId,
-        val2
-      );
+      await api.updateDocument(Server.databaseID, "tags", values.nfcId, val2);
       swal({
         title: "Congratulations!",
         text: "Your submission has been saved!",
