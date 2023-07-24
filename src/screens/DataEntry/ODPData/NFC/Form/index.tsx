@@ -10,6 +10,8 @@ import Spinner from "../../../../../components/Spinner";
 
 export default function Index() {
   const { isLoading, values, isDisabled, setValues, submitHandler } = useNFC();
+  console.log(values);
+  
 
   return (
     <>
@@ -18,9 +20,9 @@ export default function Index() {
           <Spinner />
         </div>
       ) : (
-        <General title="NFC Data">
+        <General title="Tags Data">
           <div>
-            <div className="text-[12px]">
+            {/* <div className="text-[12px]">
               <h2>
                 <b>How to get your NFC ID</b>
               </h2>
@@ -28,27 +30,51 @@ export default function Index() {
               <li>Scan your NFC using your NFC reader</li>
               <li>Get the NFC Serial Number</li>
               <li>Write the NFC Serial Number</li>
-            </div>
+            </div> */}
             <form onSubmit={submitHandler}>
               <div className="flex flex-col gap-4 mb-16 mt-8">
                 <input
-                  type="text"
-                  name="nfcId"
-                  placeholder="NFC ID"
-                  className="w-4/5 h-[44px] px-3 py-4 text-[14px] rounded-md border disabled:bg-softwhite disabled:border-softwhite"
-                  value={values.nfcId}
+                  type="hidden"
+                  name="status"
+                  value={values.status}
                   onChange={(e) =>
-                    setValues({ ...values, nfcId: e.target.value })
+                    setValues({ ...values, status: e.target.value })
+                  }
+                />
+                <input
+                  type="text"
+                  name="id"
+                  placeholder="ID"
+                  className="w-4/5 h-[44px] px-3 py-4 text-[14px] rounded-md border disabled:bg-softwhite disabled:border-softwhite"
+                  value={values.id}
+                  onChange={(e) =>
+                    setValues({ ...values, id: e.target.value })
                   }
                   disabled={isDisabled}
                 />
+                <select
+                  name="type"
+                  className="w-4/5 h-[44px] px-3 text-[14px] rounded-md border disabled:bg-softwhite disabled:border-softwhite"
+                  onChange={(e) =>
+                    setValues({ ...values, type: e.target.value })
+                  }
+                  value={values.type}
+                  disabled={isDisabled}
+                >
+                  <option value="" disabled>
+                    Select your Tags Type
+                  </option>
+                  <option value="Barcode">Barcode</option>
+                  <option value="QR Code">QR Code</option>
+                  <option value="NFC">NFC</option>
+                </select>
                 <textarea
-                  name="nfcDesc"
+                  name="description"
                   placeholder="NFC Description"
                   className="w-4/5 h-[80px] px-3 py-4 text-[14px] rounded-md border"
-                  value={values.nfcDesc}
+                  value={values.description}
                   onChange={(e) =>
-                    setValues({ ...values, nfcDesc: e.target.value })
+                    setValues({ ...values, description: e.target.value })
                   }
                 />
               </div>

@@ -2,7 +2,7 @@ import React from "react";
 // dependencies
 import { NavLink } from "react-router-dom";
 import { MdDeleteForever, MdUpdate } from "react-icons/md";
-import { Space, Table } from "antd";
+import { Space, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useNFC } from "../hooks";
 //components
@@ -10,7 +10,10 @@ import Spinner from "../../../../../components/Spinner";
 
 interface DataType {
   $id: string;
-  nfcId: string;
+  id: string;
+  type: string;
+  status: string;
+  description: string;
 }
 
 export default function Index() {
@@ -18,10 +21,30 @@ export default function Index() {
 
   const columns: ColumnsType<DataType> = [
     {
-      title: "NFC ID",
-      dataIndex: "nfcId",
-      key: "nfcId",
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
       align: "center",
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
+      align: "center",
+    },
+    {
+      title: "Tags",
+      key: "status",
+      dataIndex: "status",
+      render: (_, { status }: any) => {
+        let color = "";
+        let text = "Utilizied";
+        if (status === false) {
+          color = "volcano";
+          text = "Not Utilizied";
+          return <Tag color={color}>{text.toUpperCase()}</Tag>;
+        }
+      },
     },
     {
       title: "Action",

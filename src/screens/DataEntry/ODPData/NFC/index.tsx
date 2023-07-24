@@ -19,7 +19,7 @@ export default function Index() {
           <Spinner />
         </div>
       ) : (
-        <General title="NFC Data">
+        <General title="Tags Data">
           <div className="flex flex-col gap-6">
             <div className="flex justify-between">
               <input

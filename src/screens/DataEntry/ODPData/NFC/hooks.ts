@@ -8,13 +8,15 @@ import swal from "sweetalert";
 export const useNFC = () => {
   const navigate = useNavigate();
   let { id } = useParams();
-  const collectionId = "nfcs";
+  const collectionId = "tags";
   const [isLoading, setIsLoading] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
   const [searchValues, setSearchValues] = useState<any>("");
   const [values, setValues] = useState<any>({
-    nfcId: "",
-    nfcDesc: "",
+    id: "",
+    type: "",
+    status: false,
+    description: "",
   });
   const [listValues, setListValues] = useState<any>([]);
 
@@ -30,8 +32,10 @@ export const useNFC = () => {
     if (id) {
       const res = await api.getDocument(Server.databaseID, collectionId, id);
       setValues({
-        nfcId: res.nfcId,
-        nfcDesc: res.nfcDesc,
+        id: res.id,
+        type: res.type,
+        status: res.status,
+        description: res.description,
       });
       setIsDisabled(true);
     }
@@ -57,6 +61,7 @@ export const useNFC = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
+      console.log(values);
       await api.createDocument(Server.databaseID, collectionId, values);
       swal({
         title: "Congratulations!",
