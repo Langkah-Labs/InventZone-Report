@@ -31,46 +31,56 @@ export default function Index() {
             <form onSubmit={submitHandler}>
               <div className="flex flex-col gap-4 mb-16">
                 <select
-                  name="odpAttachedNFCId"
+                  name="nfcId"
                   className="w-4/5 h-[44px] px-3 text-[14px] rounded-md border disabled:bg-softwhite disabled:border-softwhite"
                   onChange={(e) =>
-                    setValues({ ...values, odpAttachedNFCId: e.target.value })
+                    setValues({ ...values, nfcId: e.target.value })
                   }
-                  value={values.odpAttachedNFCId}
+                  value={values.nfcId}
                   disabled={isDisabled}
                 >
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                     Select your NFC ID
                   </option>
                   {listNFCValues.map((item: any, i: number) => (
-                    <option value={item.nfcId} key={i}>
-                      {item.nfcId}
+                    <option value={item.$id} key={i}>
+                      {item.type} - {item.id}
                     </option>
                   ))}
                 </select>
+                <input
+                  type="hidden"
+                  name="tagsDocumentId"
+                  value={values.tagsDocumentId}
+                  onChange={(e) =>
+                    setValues({ ...values, tagsDocumentId: e.target.value })
+                  }
+                />
                 <select
-                  name="odpAttachedODPName"
+                  name="name"
                   className="w-4/5 h-[44px] px-3 text-[14px] rounded-md border disabled:bg-softwhite disabled:border-softwhite"
                   onChange={(e) =>
-                    setValues({ ...values, odpAttachedODPName: e.target.value })
+                    setValues({ ...values, name: e.target.value })
                   }
-                  value={values.odpAttachedODPName}
+                  value={values.name}
                   disabled={isDisabled}
                 >
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                     Select your ODP Name
                   </option>
                   {listODPValues.map((item: any, i: number) => (
-                    <option value={item.$id} key={i}>{item.name}</option>
+                    <option value={item.$id} key={i}>
+                      {item.name}
+                    </option>
                   ))}
                 </select>
                 <textarea
-                  name="odpAttachedDesc"
+                  name="desc"
                   placeholder="ODP - Attached Description"
                   className="w-4/5 h-[80px] px-3 py-4 text-[14px] rounded-md border"
-                  value={values.odpAttachedDesc}
+                  value={values.desc}
                   onChange={(e) =>
-                    setValues({ ...values, odpAttachedDesc: e.target.value })
+                    setValues({ ...values, desc: e.target.value })
                   }
                 />
               </div>

@@ -37,13 +37,14 @@ export default function Index() {
       key: "status",
       dataIndex: "status",
       render: (_, { status }: any) => {
-        let color = "";
+        let color = "geekblue";
         let text = "Utilizied";
         if (status === false) {
           color = "volcano";
           text = "Not Utilizied";
           return <Tag color={color}>{text.toUpperCase()}</Tag>;
         }
+        return <Tag color={color}>{text.toUpperCase()}</Tag>;
       },
     },
     {

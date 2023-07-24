@@ -13,9 +13,10 @@ export const useODPAttached = () => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [searchValues, setSearchValues] = useState<any>("");
   const [values, setValues] = useState<any>({
-    odpAttachedNFCId: "",
-    odpAttachedODPName: "",
-    odpAttachedDesc: "",
+    nfcId: "",
+    name: "",
+    desc: "",
+    tagsDocumentId: "",
   });
   const [listValues, setListValues] = useState<any>([]);
   const [listNFCValues, setListNFCValues] = useState<any>([]);
@@ -34,16 +35,16 @@ export const useODPAttached = () => {
     if (id) {
       const res = await api.getDocument(Server.databaseID, collectionId, id);
       setValues({
-        odpAttachedNFCId: res.nfcId,
-        odpAttachedODPName: res.name,
-        odpAttachedDesc: res.desc,
+        nfcId: res.nfcId,
+        name: res.name,
+        desc: res.desc,
       });
       setIsDisabled(true);
     }
   };
 
   const getListNFC = async () => {
-    const res = await api.listDocuments(Server.databaseID, "nfcs");
+    const res = await api.listDocuments(Server.databaseID, "tags");
     if (res) {
       setListNFCValues(res.documents);
 
@@ -73,16 +74,26 @@ export const useODPAttached = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
+      const res = await api.getDocument(Server.databaseID, "tags", values.nfcId);
       const val = {
-        nfcId: values.odpAttachedNFCId,
-        desc: values.odpAttachedDesc,
+        nfcId: res.id,
+        desc: values.desc,
       };
-
+      const val2 = {
+        status: true,
+      };
+      
       await api.updateDocument(
         Server.databaseID,
         collectionId,
-        values.odpAttachedODPName,
+        values.name,
         val
+      );
+      await api.updateDocument(
+        Server.databaseID,
+        "tags",
+        values.nfcId,
+        val2
       );
       swal({
         title: "Congratulations!",
@@ -107,7 +118,7 @@ export const useODPAttached = () => {
     setIsLoading(true);
     try {
       const val = {
-        desc: values.odpAttachedDesc,
+        desc: values.desc,
       };
       await api.updateDocument(Server.databaseID, collectionId, id, val);
       swal({
@@ -151,7 +162,7 @@ export const useODPAttached = () => {
       }
     });
   };
-  
+
   return {
     isLoading,
     values,
