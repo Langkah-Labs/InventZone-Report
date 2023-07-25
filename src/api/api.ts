@@ -67,10 +67,8 @@ let api: any = {
     name?: any
   ) => {
     console.log(url);
-    
-    return api
-      .provider()
-      .teams.createMembership(teamsId, roles, url, userId);
+
+    return api.provider().teams.createMembership(teamsId, roles, url, userId);
   },
 
   createDocument: (databaseId: any, collectionId: any, data: any) => {
@@ -85,8 +83,10 @@ let api: any = {
       .database.getDocument(databaseId, collectionId, documentId);
   },
 
-  listDocuments: (databaseId: any, collectionId: any) => {
-    return api.provider().database.listDocuments(databaseId, collectionId);
+  listDocuments: (databaseId: any, collectionId: any, queries?: any) => {
+    return api
+      .provider()
+      .database.listDocuments(databaseId, collectionId, queries);
   },
 
   updateDocument: (

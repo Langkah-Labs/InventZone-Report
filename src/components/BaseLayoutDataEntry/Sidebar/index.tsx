@@ -25,7 +25,7 @@ export default function Index() {
       <Sidebar
         transitionDuration={800}
         style={{ height: "100vh" }}
-        defaultCollapsed={true}
+        defaultCollapsed={false}
       >
         <Menu
           menuItemStyles={{

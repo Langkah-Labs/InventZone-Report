@@ -28,6 +28,7 @@ export const useODPAttached = () => {
   }, [id]);
 
   useEffect(() => {
+    getAllODP();
     getListNFC();
     getListODP();
   }, []);
@@ -44,6 +45,15 @@ export const useODPAttached = () => {
     }
   };
 
+  const getAllODP = async () => {
+    const res = await api.listDocuments(Server.databaseID, "odps");
+    if (res) {
+      setListValues(res.documents);
+
+      setIsLoading(false);
+    }
+  };
+
   const getListNFC = async () => {
     const res = await api.listDocuments(Server.databaseID, "tags", [
       Query.equal("status", false),
@@ -57,11 +67,10 @@ export const useODPAttached = () => {
 
   const getListODP = async () => {
     const res = await api.listDocuments(Server.databaseID, "odps", [
-      Query.isNotNull("nfcId"),
+      Query.isNull("nfcId"),
     ]);
     if (res) {
       setListODPValues(res.documents);
-      setListValues(res.documents);
 
       setIsLoading(false);
     }
