@@ -8,13 +8,13 @@ import {
   SubMenu,
   useProSidebar,
 } from "react-pro-sidebar";
-import { MdDomain, MdOutlineNfc } from "react-icons/md";
+import { MdDomain } from "react-icons/md";
 import { IoMdMenu, IoMdAttach } from "react-icons/io";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import { HiDotsVertical } from "react-icons/hi";
 import { GrDatabase, GrStatusInfo } from "react-icons/gr";
-import { AiOutlineBoxPlot } from "react-icons/ai";
+import { AiOutlineBoxPlot, AiFillTag } from "react-icons/ai";
 import { RiTeamFill } from "react-icons/ri";
 
 export default function Index() {
@@ -65,10 +65,10 @@ export default function Index() {
           </MenuItem>
           <SubMenu label="ODP Data" icon={<GrDatabase />}>
             <MenuItem
-              icon={<MdOutlineNfc />}
+              icon={<AiFillTag />}
               component={<NavLink to="/data-entry/field-data/nfc" />}
             >
-              NFC
+              Tags
             </MenuItem>
             <MenuItem
               icon={<AiOutlineBoxPlot />}

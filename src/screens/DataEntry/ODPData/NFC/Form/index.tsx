@@ -2,16 +2,16 @@ import React from "react";
 // dependencies
 import { NavLink } from "react-router-dom";
 import { MdCancel } from "react-icons/md";
-import { BsBoxArrowInRight } from "react-icons/bs";
+import { Button, Form, Input, Select } from "antd";
 import { useNFC } from "../hooks";
 // components
 import General from "../../../General";
 import Spinner from "../../../../../components/Spinner";
 
 export default function Index() {
-  const { isLoading, values, isDisabled, setValues, submitHandler } = useNFC();
-  console.log(values);
-  
+  const { isLoading, values, isDisabled, form, setValues, submitHandler } =
+    useNFC();
+  const { Option } = Select;
 
   return (
     <>
@@ -31,71 +31,55 @@ export default function Index() {
               <li>Get the NFC Serial Number</li>
               <li>Write the NFC Serial Number</li>
             </div> */}
-            <form onSubmit={submitHandler}>
-              <div className="flex flex-col gap-4 mb-16 mt-8">
-                <input
-                  type="hidden"
-                  name="status"
-                  value={values.status}
-                  onChange={(e) =>
-                    setValues({ ...values, status: e.target.value })
-                  }
-                />
-                <input
-                  type="text"
-                  name="id"
-                  placeholder="ID"
-                  className="w-4/5 h-[44px] px-3 py-4 text-[14px] rounded-md border disabled:bg-softwhite disabled:border-softwhite"
-                  value={values.id}
-                  onChange={(e) =>
-                    setValues({ ...values, id: e.target.value })
-                  }
-                  disabled={isDisabled}
-                />
-                <select
-                  name="type"
-                  className="w-4/5 h-[44px] px-3 text-[14px] rounded-md border disabled:bg-softwhite disabled:border-softwhite"
-                  onChange={(e) =>
-                    setValues({ ...values, type: e.target.value })
-                  }
-                  value={values.type}
+            <Form
+              form={form}
+              name="basic"
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 16 }}
+              style={{ maxWidth: 600 }}
+              initialValues={values}
+              onFinish={submitHandler}
+            >
+              <Form.Item label="status" name="status" hidden={true}>
+                <Input />
+              </Form.Item>
+              <Form.Item name="id" label="ID" rules={[{ required: true }]}>
+                <Input allowClear disabled={isDisabled} />
+              </Form.Item>
+              <Form.Item
+                name="type"
+                label="Tags Type"
+                rules={[{ required: true }]}
+              >
+                <Select
+                  placeholder="Select a tags type option"
+                  onChange={(e) => setValues({ ...values, type: e })}
+                  allowClear
                   disabled={isDisabled}
                 >
-                  <option value="" disabled>
-                    Select your Tags Type
-                  </option>
-                  <option value="Barcode">Barcode</option>
-                  <option value="QR Code">QR Code</option>
-                  <option value="NFC">NFC</option>
-                </select>
-                <textarea
-                  name="description"
-                  placeholder="NFC Description"
-                  className="w-4/5 h-[80px] px-3 py-4 text-[14px] rounded-md border"
-                  value={values.description}
-                  onChange={(e) =>
-                    setValues({ ...values, description: e.target.value })
-                  }
-                />
-              </div>
-              <hr />
-              <div className="flex justify-start items-center gap-1">
-                <NavLink
-                  to="/data-entry/field-data/nfc"
-                  className="bg-error px-4 py-1 rounded text-white flex justify-center items-center gap-2 mt-4 hover:opacity-75 hover:transition-opacity"
-                >
-                  Cancel
-                  <MdCancel />
-                </NavLink>
-                <button
-                  type="submit"
-                  className="bg-primary px-4 py-1 rounded text-white flex justify-center items-center gap-2 mt-4 hover:opacity-75 hover:transition-opacity"
-                >
-                  Submit
-                  <BsBoxArrowInRight />
-                </button>
-              </div>
-            </form>
+                  <Option value="Barcode">Barcode</Option>
+                  <Option value="QR Code">QR Code</Option>
+                  <Option value="NFC">NFC</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item name="description" label="Tags Description">
+                <Input.TextArea allowClear />
+              </Form.Item>
+              <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <div className="flex items-center gap-2">
+                  <NavLink
+                    to="/data-entry/field-data/nfc"
+                    className="bg-error px-4 py-1 border rounded text-white flex justify-center items-center gap-2 hover:bg-white hover:border-error hover:transition-opacity hover:text-error"
+                  >
+                    Cancel
+                    <MdCancel />
+                  </NavLink>
+                  <Button htmlType="submit" type="default">
+                    Submit
+                  </Button>
+                </div>
+              </Form.Item>
+            </Form>
           </div>
         </General>
       )}
