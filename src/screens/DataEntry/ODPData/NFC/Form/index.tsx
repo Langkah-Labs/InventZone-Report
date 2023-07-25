@@ -69,7 +69,7 @@ export default function Index() {
                 <div className="flex items-center gap-2">
                   <NavLink
                     to="/data-entry/field-data/nfc"
-                    className="bg-error px-4 py-1 border rounded text-white flex justify-center items-center gap-2 hover:bg-white hover:border-error hover:transition-opacity hover:text-error"
+                    className="border-error px-4 py-1 border rounded text-error flex justify-center items-center gap-2 hover:bg-error hover:transition-opacity hover:text-white"
                   >
                     Cancel
                     <MdCancel />
