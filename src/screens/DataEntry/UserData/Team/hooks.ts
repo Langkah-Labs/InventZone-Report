@@ -3,17 +3,23 @@ import { useState, useEffect } from "react";
 import api from "../../../../api/api";
 import { useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import { Form } from "antd";
 
 export const useTeam = () => {
   const navigate = useNavigate();
   let { id } = useParams();
+  const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
   const [searchValues, setSearchValues] = useState<any>("");
   const [listValues, setListValues] = useState<any>([]);
   const [values, setValues] = useState<any>({
-    teamName: "",
+    name: "",
   });
+
+  useEffect(() => {
+    form.setFieldsValue(values);
+  }, [form, values]);
 
   useEffect(() => {
     getSelectedTeam(id);
@@ -22,12 +28,11 @@ export const useTeam = () => {
   useEffect(() => {
     getListTeam();
   }, []);
-
   const getSelectedTeam = async (id: any) => {
     if (id) {
       const res = await api.get(id);
       setValues({
-        teamName: res.name,
+        name: res.name,
       });
       setIsDisabled(true);
     }
@@ -45,17 +50,14 @@ export const useTeam = () => {
     if (!id) {
       await addHandler(e);
     } else {
-      await updateHandler(id);
+      await updateHandler(id, e);
     }
   };
 
   const addHandler = async (e: any) => {
-    e.preventDefault();
     setIsLoading(true);
     try {
-      console.log(values);
-
-      await api.create(values.teamName);
+      await api.create(e.name);
       swal({
         title: "Congratulations!",
         text: "Your submission has been saved!",
@@ -74,12 +76,11 @@ export const useTeam = () => {
       setIsLoading(false);
     }
   };
-
-  const updateHandler = async (id: any) => {
+  const updateHandler = async (id: any, e: any) => {
     setIsLoading(true);
 
     try {
-      await api.updateName(id, values.teamName);
+      await api.updateName(id, e.name);
       swal({
         title: "Congratulations!",
         text: "Your submission has been saved!",
@@ -127,6 +128,7 @@ export const useTeam = () => {
     searchValues,
     listValues,
     isDisabled,
+    form,
     setValues,
     submitHandler,
     deleteHandler,
