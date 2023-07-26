@@ -5,11 +5,13 @@ import { Server } from "../../../../utils/config";
 import { useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import { Query } from "appwrite";
+import { Form } from "antd";
 
 export const useODPAttached = () => {
   const navigate = useNavigate();
   let { id } = useParams();
   const collectionId = "odps";
+  const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
   const [searchValues, setSearchValues] = useState<any>("");
@@ -22,6 +24,10 @@ export const useODPAttached = () => {
   const [listValues, setListValues] = useState<any>([]);
   const [listNFCValues, setListNFCValues] = useState<any>([]);
   const [listODPValues, setListODPValues] = useState<any>([]);
+
+  useEffect(() => {
+    form.setFieldsValue(values);
+  }, [form, values]);
 
   useEffect(() => {
     getSelectedODP(id);
@@ -80,22 +86,17 @@ export const useODPAttached = () => {
     if (!id) {
       await addHandler(e);
     } else {
-      await updateHandler(id);
+      await updateHandler(id, e);
     }
   };
 
   const addHandler = async (e: any) => {
-    e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await api.getDocument(
-        Server.databaseID,
-        "tags",
-        values.nfcId
-      );
+      const res = await api.getDocument(Server.databaseID, "tags", e.nfcId);
       const val = {
         nfcId: res.id,
-        desc: values.desc,
+        desc: e.desc,
       };
       const val2 = {
         status: true,
@@ -107,7 +108,7 @@ export const useODPAttached = () => {
         values.name,
         val
       );
-      await api.updateDocument(Server.databaseID, "tags", values.nfcId, val2);
+      await api.updateDocument(Server.databaseID, "tags", e.nfcId, val2);
       swal({
         title: "Congratulations!",
         text: "Your submission has been saved!",
@@ -127,11 +128,11 @@ export const useODPAttached = () => {
     }
   };
 
-  const updateHandler = async (id: any) => {
+  const updateHandler = async (id: any, e: any) => {
     setIsLoading(true);
     try {
       const val = {
-        desc: values.desc,
+        desc: e.desc,
       };
       await api.updateDocument(Server.databaseID, collectionId, id, val);
       swal({
@@ -184,6 +185,7 @@ export const useODPAttached = () => {
     listODPValues,
     listValues,
     isDisabled,
+    form,
     setValues,
     submitHandler,
     deleteHandler,
