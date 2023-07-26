@@ -4,19 +4,25 @@ import api from "../../../../api/api";
 import { Server } from "../../../../utils/config";
 import { useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import { Form } from "antd";
 
 export const useRole = () => {
   const navigate = useNavigate();
   let { id } = useParams();
   const collectionId = "roles";
+  const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
   const [searchValues, setSearchValues] = useState<any>("");
   const [listValues, setListValues] = useState<any>([]);
   const [values, setValues] = useState<any>({
-    roleName: "",
-    roleDesc: "",
+    name: "",
+    desc: "",
   });
+
+  useEffect(() => {
+    form.setFieldsValue(values);
+  }, [form, values]);
 
   useEffect(() => {
     getSelectedRoles(id);
@@ -30,8 +36,8 @@ export const useRole = () => {
     if (id) {
       const res = await api.getDocument(Server.databaseID, collectionId, id);
       setValues({
-        roleName: res.name,
-        roleDesc: res.desc,
+        name: res.name,
+        desc: res.desc,
       });
       setIsDisabled(true);
     }
@@ -49,21 +55,14 @@ export const useRole = () => {
     if (!id) {
       await addHandler(e);
     } else {
-      await updateHandler(id);
+      await updateHandler(id, e);
     }
   };
 
   const addHandler = async (e: any) => {
-    e.preventDefault();
     setIsLoading(true);
     try {
-      const val = {
-        name: values.roleName,
-        desc: values.roleDesc,
-      };
-      console.log(val);
-
-      await api.createDocument(Server.databaseID, collectionId, val);
+      await api.createDocument(Server.databaseID, collectionId, e);
       swal({
         title: "Congratulations!",
         text: "Your submission has been saved!",
@@ -83,15 +82,10 @@ export const useRole = () => {
     }
   };
 
-  const updateHandler = async (id: any) => {
+  const updateHandler = async (id: any, e: any) => {
     setIsLoading(true);
     try {
-      const val = {
-        name: values.roleName,
-        desc: values.roleDesc,
-      };
-      console.log(val);
-      await api.updateDocument(Server.databaseID, collectionId, id, val);
+      await api.updateDocument(Server.databaseID, collectionId, id, e);
       swal({
         title: "Congratulations!",
         text: "Your submission has been saved!",
@@ -139,6 +133,7 @@ export const useRole = () => {
     searchValues,
     listValues,
     isDisabled,
+    form,
     setValues,
     submitHandler,
     deleteHandler,
