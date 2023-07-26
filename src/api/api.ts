@@ -33,6 +33,10 @@ let api: any = {
     return api.provider().account.createEmailSession(email, password);
   },
 
+  getSession: () => {
+    return api.provider().account.getSession("current");
+  },
+
   deleteCurrentSession: () => {
     return api.provider().account.deleteSession("current");
   },

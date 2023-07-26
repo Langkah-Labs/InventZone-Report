@@ -1,7 +1,7 @@
 import React from "react";
 // dependencies
 import { useLogin } from "./hooks";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Button, Form, Input } from "antd";
 // components
 import Spinner from "../../components/Spinner";
 // assets
@@ -9,14 +9,7 @@ import s from "./login.module.scss";
 import { icon_img } from "../../utils/constants";
 
 export default function Index() {
-  const {
-    values,
-    isLoading,
-    passwordType,
-    setValues,
-    loginHandler,
-    togglePassword,
-  } = useLogin();
+  const { isLoading, loginHandler } = useLogin();
 
   return (
     <>
@@ -27,7 +20,9 @@ export default function Index() {
       ) : (
         <div className={`${s.login} h-screen flex justify-center items-center`}>
           <div className="flex justify-center sm:flex-col xs:flex-col">
-            <div className={`${s.login_left} w-60 rounded-l- sm:h-16 xs:h-16 sm:w-full xs:w-full`}></div>
+            <div
+              className={`${s.login_left} w-60 rounded-l- sm:h-16 xs:h-16 sm:w-full xs:w-full`}
+            ></div>
             <div className="w-96 px-8 py-12 flex flex-col">
               <div className="p-0 w-2/5">
                 <img src={icon_img} alt="invent-zone-icon" className="w-4/6" />
@@ -47,50 +42,45 @@ export default function Index() {
               <div
                 className={`${s.login_form} flex flex-col justify-center my-12`}
               >
-                <form onSubmit={loginHandler}>
-                  <div className="flex flex-col gap-8">
-                    <input
-                      type="text"
-                      name="username"
-                      placeholder="Username / Email"
-                      value={values.username}
-                      onChange={(e) =>
-                        setValues({ ...values, username: e.target.value })
-                      }
-                    />
-                    <div className="flex items-center">
-                      <input
-                        type={passwordType}
-                        name="password"
-                        placeholder="Password"
-                        value={values.password}
-                        onChange={(e) =>
-                          setValues({ ...values, password: e.target.value })
-                        }
-                      />
-                      <div>
-                        <button
-                          className="btn btn-outline-primary"
-                          onClick={togglePassword}
-                        >
-                          {passwordType === "password" ? (
-                            <AiOutlineEyeInvisible />
-                          ) : (
-                            <AiOutlineEye />
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex mt-8">
-                    <button
-                      type="submit"
-                      className="flex justify-center text-soft rounded-md border border-primary text-[12px] px-4 py-2 hover:bg-primary hover:text-white transition"
-                    >
-                      SIGN IN
-                    </button>
-                  </div>
-                </form>
+                <Form
+                  name="basic"
+                  labelCol={{ span: 8 }}
+                  wrapperCol={{ span: 16 }}
+                  style={{ maxWidth: 600 }}
+                  initialValues={{ remember: true }}
+                  onFinish={loginHandler}
+                  autoComplete="off"
+                >
+                  <Form.Item
+                    label="Username"
+                    name="username"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Input.Password />
+                  </Form.Item>
+
+                  <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Button htmlType="submit" type="default">
+                      Submit
+                    </Button>
+                  </Form.Item>
+                </Form>
               </div>
             </div>
           </div>

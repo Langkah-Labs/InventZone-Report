@@ -1,9 +1,8 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 // dependencies
 import api from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-import { GlobalContext } from "../../context/GlobalContext";
 
 interface FormData {
   username: string;
@@ -11,25 +10,21 @@ interface FormData {
 }
 
 export const useLogin = () => {
-  const { setUserSessionHandler } = useContext(GlobalContext);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [passwordType, setPasswordType] = useState("password");
   const [values, setValues] = useState<FormData>({
     username: "",
     password: "",
   } as FormData);
 
   const loginHandler = async (e: any) => {
-    e.preventDefault();
+    // e.preventDefault();
     setIsLoading(true);
     try {
-      await api.createSession(values.username, values.password);
+      await api.createSession(e.username, e.password);
       const data = await api.getAccount();
 
       if (data) {
-        setUserSessionHandler(data);
-        localStorage.setItem("user_session", data);
         setIsLoading(false);
         navigate("/");
       }
@@ -44,22 +39,11 @@ export const useLogin = () => {
     }
   };
 
-  const togglePassword = (e: any) => {
-    e.preventDefault();
-    if (passwordType === "password") {
-      setPasswordType("text");
-      return;
-    }
-    setPasswordType("password");
-  };
-
   return {
     values,
     isLoading,
-    passwordType,
     setValues,
     loginHandler,
-    togglePassword,
   };
 };
 

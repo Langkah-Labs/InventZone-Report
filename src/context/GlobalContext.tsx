@@ -28,7 +28,7 @@ interface Props {
 export const GlobalContextProvider: React.FC<Props> = ({ children }) => {
   const [contextInstance, setContextInstance] = useState<number>(1);
   const [userSession, setUserSession] = useState<any>({});
-  const [checkSession, setCheckSession] = useState<boolean>(true);
+  const [checkSession, setCheckSession] = useState<boolean>(false);
 
   const setContextInstanceHandler = (value: number) => {
     setContextInstance(value);

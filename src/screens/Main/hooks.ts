@@ -1,21 +1,28 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 // dependencies
 import api from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-import { GlobalContext } from "../../context/GlobalContext";
 
 export const useMain = () => {
-  const { setCheckSessionHandler } = useContext(GlobalContext);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem("user_session") === null) {
-      setCheckSessionHandler(false);
-    }
+    getSession();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const getSession = async () => {
+    setIsLoading(true);
+    try {
+      await api.getSession();
+      setIsLoading(false);
+    } catch (e) {
+      setIsLoading(false);
+      navigate("/login");
+    }
+  };
 
   const logoutHandler = async () => {
     setIsLoading(true);
