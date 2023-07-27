@@ -28,9 +28,6 @@ export default function Index() {
               initialValues={values}
               onFinish={submitHandler}
             >
-              <Form.Item label="status" name="status" hidden={true}>
-                <Input />
-              </Form.Item>
               <Form.Item name="name" label="Team Name" rules={[{ required: true }]}>
                 <Input allowClear />
               </Form.Item>

@@ -24,6 +24,10 @@ let api: any = {
     return api.provider().account.create("unique()", email, password, name);
   },
 
+  updatePassword: (password: any) => {
+    return api.provider().account.create(password);
+  },
+
   getAccount: () => {
     let account = api.provider().account;
     return account.get();
@@ -70,9 +74,7 @@ let api: any = {
     phone?: any,
     name?: any
   ) => {
-    console.log(url);
-
-    return api.provider().teams.createMembership(teamsId, roles, url, userId);
+    return api.provider().teams.createMembership(teamsId, roles, url, email);
   },
 
   createDocument: (databaseId: any, collectionId: any, data: any) => {

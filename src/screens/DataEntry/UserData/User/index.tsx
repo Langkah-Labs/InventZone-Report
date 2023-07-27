@@ -1,35 +1,28 @@
-import React, { useState, useEffect } from "react";
-// dependencies
-import axios from "axios";
+import React from "react";
 // import _ from "lodash";
 import { NavLink } from "react-router-dom";
 import { MdDeleteForever, MdUpdate } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
-import swal from "sweetalert";
-import { Space, Table, Tag } from "antd";
+import { Space, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { useUser } from "./hooks";
 // components
 import General from "../../General";
 import Spinner from "../../../../components/Spinner";
 
 interface DataType {
-  key: string;
-  no: number;
+  $id: string;
   name: string;
-  roleName: string;
+  role: string;
+  team: string;
+  phoneNumber: string;
+  email: string;
 }
 
 export default function Index() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [searchValues, setSearchValues] = useState<any>("");
+  const { isLoading, listValues, deleteHandler } = useUser();
 
   const columns: ColumnsType<DataType> = [
-    {
-      title: "No",
-      dataIndex: "no",
-      key: "no",
-      align: "center",
-    },
     {
       title: "Name",
       dataIndex: "name",
@@ -38,8 +31,14 @@ export default function Index() {
     },
     {
       title: "Role Name",
-      dataIndex: "roleName",
-      key: "roleName",
+      dataIndex: "role",
+      key: "role",
+      align: "center",
+    },
+    {
+      title: "Team Name",
+      dataIndex: "team",
+      key: "team",
       align: "center",
     },
     {
@@ -49,7 +48,7 @@ export default function Index() {
       render: (_, record) => (
         <Space size="middle">
           <NavLink
-            to={`/data-entry/user-data/user/update/1`}
+            to={`/data-entry/user-data/user/update/${record.$id}`}
             className="rounded bg-green-500 px-4 flex justify-center items-center gap-1 hover:opacity-75 hover:transition-opacity"
           >
             <MdUpdate />
@@ -58,7 +57,7 @@ export default function Index() {
           <button
             className="rounded text-red-500 px-4 flex items-center justify-center gap-1 hover:opacity-75 hover:transition-opacity"
             onClick={() => {
-              deleteHandler("1");
+              deleteHandler(`${record.$id}`);
             }}
           >
             <MdDeleteForever />
@@ -69,60 +68,6 @@ export default function Index() {
     },
   ];
 
-  const data: DataType[] = [
-    {
-      key: "1",
-      no: 1,
-      name: "Andry",
-      roleName: "Administrator",
-    },
-    {
-      key: "2",
-      no: 2,
-      name: "Ben",
-      roleName: "Super Admin",
-    },
-    {
-      key: "3",
-      no: 3,
-      name: "French",
-      roleName: "Staff",
-    },
-    {
-      key: "4",
-      no: 4,
-      name: "Bulky",
-      roleName: "Field - Opearation",
-    },
-  ];
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
-
-  const deleteHandler = async (id: string) => {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this record!",
-      icon: "warning",
-      buttons: ["Cancel", "Yes"],
-      dangerMode: true,
-    }).then(async (willDelete) => {
-      if (willDelete) {
-        setIsLoading(true);
-        await axios.delete(`https://dummyjson.com/users/${id}`).then(() =>
-          swal({
-            title: "Deleted!",
-            text: "Poof! Your record has been deleted!",
-            icon: "success",
-          }).then(() => window.location.reload())
-        );
-      } else {
-        swal("Your record is safe!");
-      }
-    });
-  };
-
   return (
     <>
       {isLoading ? (
@@ -132,15 +77,7 @@ export default function Index() {
       ) : (
         <General title="User Data">
           <div className="flex flex-col gap-6">
-            <div className="flex justify-between">
-              <input
-                type="text"
-                name="searchValues"
-                placeholder="Search.."
-                className="w-1/5 h-[44px] px-3 py-4 text-[14px] rounded-md border"
-                value={searchValues}
-                onChange={(e) => setSearchValues(e.target.value)}
-              />
+            <div className="flex justify-end">
               <NavLink to="/data-entry/user-data/user/add">
                 <div className="border border-primary text-primary rounded-md flex gap-2 justify-center items-center py-1 px-2 hover:bg-primary hover:text-white">
                   <IoIosAddCircle />
@@ -151,7 +88,7 @@ export default function Index() {
             <div>
               <Table
                 columns={columns}
-                dataSource={data}
+                dataSource={listValues}
                 pagination={{ pageSize: 2 }}
               />
             </div>

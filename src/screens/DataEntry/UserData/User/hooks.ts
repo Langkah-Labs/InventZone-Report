@@ -4,33 +4,38 @@ import api from "../../../../api/api";
 import { Server } from "../../../../utils/config";
 import { useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-import { generateUniqueId } from "../../../../utils/constants";
+import { Form } from "antd";
 
 export const useUser = () => {
   const navigate = useNavigate();
   let { id } = useParams();
-  const collectionId = "nfcs";
+  const collectionId = "users";
   const url = "http://localhost";
+  const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
   const [searchValues, setSearchValues] = useState<any>("");
   const [listValues, setListValues] = useState<any>([]);
   const [values, setValues] = useState<any>({
-    userName: "",
-    userEmail: "",
-    userPhone: "",
-    userTeam: "",
-    userRole: "",
+    name: "",
+    email: "",
+    phoneNumber: "",
+    team: "",
+    role: "",
   });
   const [listRolesValues, setListRolesValues] = useState<any>([]);
   const [listTeamValues, setListTeamValues] = useState<any>([]);
+
+  useEffect(() => {
+    form.setFieldsValue(values);
+  }, [form, values]);
 
   useEffect(() => {
     getSelectedUser(id);
   }, [id]);
 
   useEffect(() => {
-    // getListUser();
+    getListUser();
     getListRoles();
     getListTeam();
     setIsLoading(false);
@@ -40,8 +45,11 @@ export const useUser = () => {
     if (id) {
       const res = await api.getDocument(Server.databaseID, collectionId, id);
       setValues({
-        nfcId: res.nfcId,
-        nfcDesc: res.nfcDesc,
+        name: res.name,
+        email: res.email,
+        phoneNumber: res.phoneNumber,
+        team: res.team,
+        role: res.role,
       });
       setIsDisabled(true);
     }
@@ -67,8 +75,6 @@ export const useUser = () => {
   const getListTeam = async () => {
     const res = await api.list();
     if (res) {
-      console.log(res);
-
       setListTeamValues(res.teams);
 
       setIsLoading(false);
@@ -79,27 +85,26 @@ export const useUser = () => {
     if (!id) {
       await addHandler(e);
     } else {
-      await updateHandler(id);
+      await updateHandler(id, e);
     }
   };
 
   const addHandler = async (e: any) => {
-    e.preventDefault();
     setIsLoading(true);
     try {
-      const id = generateUniqueId();
-      //   await api.createDocument(Server.databaseID, collectionId, id, values);
+      delete e.prefix;
+      const resTeam = await api.get(e.team);
+      const val = {
+        ...e,
+        phoneNumber: e.phoneNumber.toString(),
+        team: resTeam.name,
+      };
+
+      await api.createDocument(Server.databaseID, collectionId, val);
+
       const role = [];
-      role.push(values.userRole);
-      await api.createMembership(
-        values.userTeam,
-        role,
-        url,
-        values.userEmail,
-        "64b3cd7f4b56174c36e4",
-        values.userPhone,
-        values.userName
-      );
+      role.push(e.role);
+      await api.createMembership(e.team, role, url, e.email);
 
       swal({
         title: "Congratulations!",
@@ -120,17 +125,22 @@ export const useUser = () => {
     }
   };
 
-  const updateHandler = async (id: any) => {
+  const updateHandler = async (id: any, e: any) => {
     setIsLoading(true);
     try {
-      await api.updateDocument(Server.databaseID, collectionId, id, values);
+      delete e.prefix;
+      const val = {
+        ...e,
+        phoneNumber: e.phoneNumber.toString(),
+      };
+      await api.updateDocument(Server.databaseID, collectionId, id, val);
       swal({
         title: "Congratulations!",
         text: "Your submission has been saved!",
         icon: "success",
       }).then(() => {
         setIsLoading(false);
-        navigate("/data-entry/field-data/nfc");
+        navigate("/data-entry/user-data/user");
       });
     } catch (e) {
       console.error(e);
@@ -173,6 +183,7 @@ export const useUser = () => {
     isDisabled,
     listRolesValues,
     listTeamValues,
+    form,
     setValues,
     submitHandler,
     deleteHandler,
