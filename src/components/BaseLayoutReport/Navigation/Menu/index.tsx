@@ -15,22 +15,6 @@ const items: MenuProps["items"] = [
     label: <NavLink to="/">Main Menu</NavLink>,
     key: "mainMenu",
     icon: <MdDomain />,
-    children: [
-      {
-        type: "group",
-        label: "Item 1",
-        children: [
-          {
-            label: "Option 1",
-            key: "setting:1",
-          },
-          {
-            label: "Option 2",
-            key: "setting:2",
-          },
-        ],
-      },
-    ],
   },
   {
     label: "General Report",
@@ -109,7 +93,9 @@ const itemsMobile: MenuProps["items"] = [
         key: "field",
         children: [
           {
-            label: <NavLink to="/report/field-data/list-odp">List of ODP</NavLink>,
+            label: (
+              <NavLink to="/report/field-data/list-odp">List of ODP</NavLink>
+            ),
             key: "listODP",
             icon: <HiDotsVertical />,
           },
