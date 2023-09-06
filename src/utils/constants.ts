@@ -1,12 +1,14 @@
 export const home_img =
   "https://imagizer.imageshack.com/img922/5253/Xgz4CD.png";
 export const icon_img =
-  "https://imagizer.imageshack.com/img923/7346/gtc2zS.png";
+  "https://imagizer.imageshack.com/img924/8489/Ul24nu.png";
 export const yellow_icon =
   "https://imagizer.imageshack.com/img924/5120/oUFwDA.png";
 export const blue_icon =
   "https://imagizer.imageshack.com/img922/9292/NjxSvM.png";
 export const red_icon = "https://imagizer.imageshack.com/img924/936/RE7BJI.png";
+export const pattern_img =
+  "https://imagizer.imageshack.com/img923/9875/RfYMuW.jpg";
 
 export const mock_data = [
   {
@@ -74,4 +76,4 @@ export const generateUniqueId = () => {
   }
 
   return uniqueId;
-}
+};

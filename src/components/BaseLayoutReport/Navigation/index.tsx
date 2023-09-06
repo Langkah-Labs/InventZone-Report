@@ -11,16 +11,14 @@ const Index = () => {
   return (
     <div className="flex justify-between items-center shadow-md">
       <Menu />
-
-      <div className="text-error text-[12px] pr-8 pl-6">
+      <div className="pr-8 pl-6">
         <button
           onClick={logoutHandler}
-          className="flex items-center gap-1  rounded-md hover:opacity-75 transition"
+          className="flex items-center gap-1 rounded-md hover:opacity-75 transition body-large-medium text-red-400"
         >
           <IoIosLogOut />
           Logout
         </button>
-        <hr />
       </div>
     </div>
   );

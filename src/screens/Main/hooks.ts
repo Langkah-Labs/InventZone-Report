@@ -20,7 +20,7 @@ export const useMain = () => {
       setIsLoading(false);
     } catch (e) {
       setIsLoading(false);
-      navigate("/login");
+      // navigate("/login");
     }
   };
 

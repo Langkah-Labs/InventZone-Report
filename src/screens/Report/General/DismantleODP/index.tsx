@@ -38,10 +38,10 @@ export default function Index() {
             </div>
             <div className="mt-12 flex flex-col gap-12 rounded-md shadow-md border border-softwhite p-12">
               <div>
-                <h2 className="text-[28px] underline underline-offset-4 sm:text-[20px] xs:text-[20px]">
+                <h2 className="text-[28px] text-[#113A5D] underline underline-offset-4 sm:text-[20px] xs:text-[20px]">
                   <b>ODP Moving Average</b>
                 </h2>
-                <h5 className="sm:text-[10px] xs:text-[10px]">
+                <h5 className="sm:text-[10px] xs:text-[10px] text-gray-600">
                   The movement of the <b>number of ODP</b> every time based on
                   the amount of demolition
                 </h5>

@@ -21,13 +21,13 @@ export const useLogin = () => {
     // e.preventDefault();
     setIsLoading(true);
     try {
-      await api.createSession(e.username, e.password);
-      const data = await api.getAccount();
+      // await api.createSession(e.username, e.password);
+      // const data = await api.getAccount();
 
-      if (data) {
-        setIsLoading(false);
-        navigate("/");
-      }
+      // if (data) {
+      //   setIsLoading(false);
+      // }
+      navigate("/");
     } catch (e) {
       setIsLoading(false);
       console.error(e);

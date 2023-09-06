@@ -7,7 +7,7 @@ export default function Index(props: any) {
     <>
       <BaseLayout>
         <div className="mb-2">
-          <h1 className="text-[32px] text-primary">
+          <h1 className="text-[32px] text-[#113A5D]">
             <b>Field Data</b>
           </h1>
         </div>

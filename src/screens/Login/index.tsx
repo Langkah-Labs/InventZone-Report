@@ -28,14 +28,14 @@ export default function Index() {
                 <img src={icon_img} alt="invent-zone-icon" className="w-4/6" />
               </div>
               <div>
-                <h2 className="text-primary text-[64px]">
+                <h2 className="text-[#113A5D] text-[64px]">
                   <i>
                     <b>Hello!</b>
                   </i>
                 </h2>
-                <h5 className="text-tertiary text-[32px] p-0 m-0 tracking-wide">
+                <h5 className="text-[32px] text-gray-400 p-0 m-0 tracking-wide">
                   <b>
-                    Lets Introduce<span className="text-primary">.</span>
+                    Lets Introduce<span className="text-[#113A5D]">.</span>
                   </b>
                 </h5>
               </div>

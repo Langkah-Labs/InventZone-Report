@@ -8,7 +8,7 @@ export default function index() {
       <Grid
         height="120"
         width="120"
-        color="#0B4B31"
+        color="#113A5D"
         ariaLabel="grid-loading"
         radius="12.5"
         wrapperStyle={{}}

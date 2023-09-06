@@ -75,7 +75,7 @@ export default function index() {
         <Space size="middle">
           <NavLink
             to={`/report/field-data/list-customer`}
-            className="rounded bg-green-500 px-4 flex justify-center items-center gap-1 hover:opacity-75 hover:transition-opacity text-error underline underline-offset-4"
+            className="rounded text-sky-600 px-4 flex justify-center items-center gap-1 hover:opacity-75 hover:transition-opacity text-error underline underline-offset-4"
           >
             <CgDetailsMore />
             Detail
