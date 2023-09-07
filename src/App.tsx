@@ -5,6 +5,7 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 // components
 import Main from "./screens/Main";
 import Login from "./screens/Login";
+import Register from "./screens/Register";
 import GeneralReport from "./screens/Report/General";
 import InstalledODP from "./screens/Report/General/InstalledODP";
 import DismantleODP from "./screens/Report/General/DismantleODP";
@@ -33,6 +34,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/report/general" element={<GeneralReport />} />
             <Route
               path="/report/general/installed-odp"

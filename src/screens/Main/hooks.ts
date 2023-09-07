@@ -26,22 +26,24 @@ export const useMain = () => {
 
   const logoutHandler = async () => {
     setIsLoading(true);
-    try {
-      const res = await api.deleteCurrentSession();
-      if (res) {
-        localStorage.removeItem("user_session");
-        setIsLoading(false);
-        navigate("/login");
-      }
-    } catch (e) {
-      setIsLoading(false);
-      console.error(e);
-      swal({
-        title: "Failed!",
-        text: "Oops, something went wrong",
-        icon: "error",
-      });
-    }
+    // try {
+    //   const res = await api.deleteCurrentSession();
+    //   if (res) {
+    //     localStorage.removeItem("user_session");
+    //     setIsLoading(false);
+    //     navigate("/login");
+    //   }
+    // } catch (e) {
+    //   setIsLoading(false);
+    //   console.error(e);
+    //   swal({
+    //     title: "Failed!",
+    //     text: "Oops, something went wrong",
+    //     icon: "error",
+    //   });
+    // }
+    setIsLoading(false);
+    navigate("/login");
   };
 
   return {
