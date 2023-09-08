@@ -1,32 +1,37 @@
 import React from "react";
 // dependencies
-// import { mock_data } from "../../../../utils/constants";
 import { NavLink } from "react-router-dom";
 import { Space, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { CgDetailsMore } from "react-icons/cg";
+import { useListofODP } from "../hooks";
+// components
+import Spinner from "../../../../../components/Spinner";
 
 interface DataType {
   key: string;
   no: number;
-  odpId: string;
-  capacity: string;
-  opticalPower: string;
+  serial_number: string;
+  capacity: number;
+  optical_power: string;
   installedDate: string;
   location: string;
 }
-export default function index() {
+export default function Index() {
+  const { data, isLoading } = useListofODP();
+
   const columns: ColumnsType<DataType> = [
     {
       title: "No",
       dataIndex: "no",
       key: "no",
       align: "center",
+      render: (text, record, index) => index + 1,
     },
     {
       title: "ODP ID",
-      dataIndex: "odpId",
-      key: "odpId",
+      dataIndex: "serial_number",
+      key: "serial_number",
       align: "center",
     },
     {
@@ -38,10 +43,10 @@ export default function index() {
     },
     {
       title: "Optical Power",
-      dataIndex: "opticalPower",
-      key: "opticalPower",
+      dataIndex: "optical_power",
+      key: "optical_power",
       align: "center",
-      render: (_, { opticalPower }) => <>{opticalPower} dBm</>,
+      render: (_, { optical_power }) => <>{optical_power} dBm</>,
     },
     {
       title: "Installed Data",
@@ -56,14 +61,18 @@ export default function index() {
       align: "center",
       render: (_, { location }) => (
         <>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`https://www.google.com/maps?q=${location}`}
-            className="text-error underline underline-offset-4"
-          >
-            View Location
-          </a>
+          {location ? (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`https://www.google.com/maps?q=${location}`}
+              className="text-error underline underline-offset-4"
+            >
+              View Location
+            </a>
+          ) : (
+            <div>No Location</div>
+          )}
         </>
       ),
     },
@@ -73,68 +82,38 @@ export default function index() {
       align: "center",
       render: (_, record) => (
         <Space size="middle">
-          <NavLink
-            to={`/report/field-data/list-customer`}
-            className="rounded text-sky-600 px-4 flex justify-center items-center gap-1 hover:opacity-75 hover:transition-opacity text-error underline underline-offset-4"
-          >
-            <CgDetailsMore />
-            Detail
-          </NavLink>
+          {record.capacity !== 0 ? (
+            <NavLink
+              to={`/report/field-data/list-customer`}
+              className="rounded text-sky-600 px-4 flex justify-center items-center gap-1 hover:opacity-75 hover:transition-opacity text-error underline underline-offset-4"
+            >
+              <CgDetailsMore />
+              Detail
+            </NavLink>
+          ) : (
+            <div>No Detail Data</div>
+          )}
         </Space>
       ),
     },
   ];
 
-  const data: DataType[] = [
-    {
-      key: "1",
-      no: 1,
-      odpId: "E200RT567",
-      capacity: "8",
-      opticalPower: "-19",
-      installedDate: "04 July 2023",
-      location: "-6.826844270379128, 110.00180855164521",
-    },
-    {
-      key: "2",
-      no: 2,
-      odpId: "E3000FGHY",
-      capacity: "8",
-      opticalPower: "-21",
-      installedDate: "04 July 2023",
-      location: "-6.008239485073829, 106.03978463292805",
-    },
-    {
-      key: "3",
-      no: 3,
-      odpId: "E200N812F",
-      capacity: "8",
-      opticalPower: "-22",
-      installedDate: "04 July 2023",
-      location: "-6.886683176271803, 107.62005181464347",
-    },
-    {
-      key: "4",
-      no: 4,
-      odpId: "E200RT567",
-      capacity: "8",
-      opticalPower: "-22",
-      installedDate: "04 July 2023",
-      location: "-8.46054729573578, 115.17057836507453",
-    },
-    {
-      key: "5",
-      no: 5,
-      odpId: "E200RT567",
-      capacity: "8",
-      opticalPower: "-22",
-      installedDate: "04 July 2023",
-      location: "-4.009106559113772, 103.23899308454023",
-    },
-  ];
   return (
-    <div className="overflow-scroll">
-      <Table columns={columns} dataSource={data} pagination={{ pageSize: 3 }} />
-    </div>
+    <>
+      {isLoading ? (
+        <div className="h-screen flex justify-center items-center">
+          <Spinner />
+        </div>
+      ) : (
+        <div className="overflow-scroll">
+          <Table
+            columns={columns}
+            dataSource={data}
+            pagination={{ pageSize: 3 }}
+            rowKey="id"
+          />
+        </div>
+      )}
+    </>
   );
 }

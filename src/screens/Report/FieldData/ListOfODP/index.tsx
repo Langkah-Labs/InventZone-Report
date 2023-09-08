@@ -21,7 +21,7 @@ export default function Index() {
       ) : (
         <FieldData>
           <div className="flex flex-col gap-6">
-            <div className="flex items-start">
+            {/* <div className="flex items-start">
               <input
                 type="text"
                 name="searchValues"
@@ -30,7 +30,7 @@ export default function Index() {
                 value={searchValues}
                 onChange={(e) => setSearchValues(e.target.value)}
               />
-            </div>
+            </div> */}
             <div className="w-full">
               <Table />
             </div>

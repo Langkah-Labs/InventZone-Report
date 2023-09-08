@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ConfigProvider } from "antd";
 // Utils
 import { GlobalContextProvider } from "./context/GlobalContext";
 // components
@@ -23,9 +24,22 @@ const client = new ApolloClient({
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <GlobalContextProvider>
-        <App />
-      </GlobalContextProvider>
+      <ConfigProvider
+        theme={{
+          token: {
+            // Seed Token
+            colorPrimary: "#113A5D",
+            // borderRadius: 2,
+
+            // Alias Token
+            // colorBgContainer: "#f6ffed",
+          },
+        }}
+      >
+        <GlobalContextProvider>
+          <App />
+        </GlobalContextProvider>
+      </ConfigProvider>
     </ApolloProvider>
   </React.StrictMode>
 );
