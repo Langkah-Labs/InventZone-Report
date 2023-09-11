@@ -27,20 +27,20 @@ export default function Index() {
                   <img
                     src={icon_img}
                     alt="invent-zone-icon"
-                    className="w-3/6"
+                    className="w-3/6 sm:w-5/6 xs:w-5/6"
                   />
                 </div>
               </div>
               <div className="h-full flex justify-start items-start mt-36">
                 <div className="flex flex-col itemx-start">
                   <div className="flex flex-col items-start">
-                    <h2 className="body-4large-bold text-[#113A5D] uppercase text-left sm:text-[32px] xs:text-[32px]">
+                    <h2 className="body-4large-bold text-[#113A5D] uppercase text-left sm:text-[24px] xs:text-[24px]">
                       Data to enrich your <br /> business
                     </h2>
                   </div>
                   <div className="flex flex-col items-start gap-8 mt-2">
                     <div className="flex flex-col gap-8 items-start">
-                      <h5 className="body-base-medium text-gray-400">
+                      <h5 className="body-base-medium text-gray-400 sm:text-[10px] xs:text-[10px]">
                         Unlocking the Power of Data: A Comprehensive Approach to
                         Business Enhancement through In-Depth <br /> Data
                         Enrichment and Strategic Analysis
@@ -48,14 +48,14 @@ export default function Index() {
                       <div className="flex items-center justify-center gap-4">
                         <NavLink
                           to="/report/general/installed-odp"
-                          className="flex items-center gap-2 justify-center w-44 h-10 border bg-[#113A5D] text-white rounded-md transition hover:bg-transparent hover:text-[#113A5D]"
+                          className="flex items-center gap-2 justify-center w-44 h-10 border bg-[#113A5D] text-white rounded-md transition hover:bg-transparent hover:text-[#113A5D] sm:w-32 xs:w-32 sm:text-[10px] xs:text-[10px]"
                         >
                           <FaGlobe />
                           General Report
                         </NavLink>
                         <NavLink
                           to="/report/field-data/list-odp"
-                          className="flex items-center gap-2 justify-center w-44 h-10 border border-[#113A5D] rounded-md text-[#113A5D] transition hover:bg-[#113A5D] hover:text-white"
+                          className="flex items-center gap-2 justify-center w-44 h-10 border border-[#113A5D] rounded-md text-[#113A5D] transition hover:bg-[#113A5D] hover:text-white sm:w-32 xs:w-32 sm:text-[10px] xs:text-[10px]"
                         >
                           <FaRegListAlt />
                           Field Data
@@ -75,7 +75,7 @@ export default function Index() {
                 </div>
               </div>
             </div>
-            <div className="w-4/12">
+            <div className="w-4/12 sm:hidden xs:hidden">
               <div className="h-full">
                 <img
                   src={pattern_img}

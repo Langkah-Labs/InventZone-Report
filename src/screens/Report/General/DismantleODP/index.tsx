@@ -8,7 +8,8 @@ import BarChart from "./BarChart";
 import SumamaryCard from "./SummaryCard";
 
 export default function Index() {
-  const { isLoading } = useDismantleODP();
+  const { isLoading, totalProduct, totalDismantle, avgDismantle } =
+    useDismantleODP();
 
   return (
     <>
@@ -23,17 +24,17 @@ export default function Index() {
               <SumamaryCard
                 title="Total ODP"
                 description="Number of ALL ODP"
-                total={8}
+                total={totalProduct}
               />
               <SumamaryCard
                 title="Total Dismantle"
                 description="Number of Dismantle ODP"
-                total={4}
+                total={totalDismantle}
               />
               <SumamaryCard
                 title="Avg. Dismantle per day"
                 description="Average of dismantle ODP per day"
-                total={1}
+                total={avgDismantle}
               />
             </div>
             <div className="mt-12 flex flex-col gap-12 rounded-md shadow-md border border-softwhite p-12">

@@ -9,7 +9,8 @@ import MapChart from "./MapChart";
 import SummaryCard from "./SummaryCard";
 
 export default function Index() {
-  const { isLoading } = useInstalledODP();
+  const { isLoading, totalProduct, totalInstalled, avgInstalled } =
+    useInstalledODP();
 
   return (
     <>
@@ -24,17 +25,17 @@ export default function Index() {
               <SummaryCard
                 title="Total ODP"
                 description="Number of All ODP"
-                total={8}
+                total={totalProduct}
               />
               <SummaryCard
                 title="Total Installed"
                 description="Number of installed ODP"
-                total={5}
+                total={totalInstalled}
               />
               <SummaryCard
                 title="Avg. Installed per day"
                 description="Average of installed ODP per day"
-                total={2}
+                total={avgInstalled}
               />
             </div>
             <div className="mt-12 flex flex-col gap-12 rounded-md shadow-md border border-softwhite p-12">
