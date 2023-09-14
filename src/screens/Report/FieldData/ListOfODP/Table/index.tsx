@@ -5,6 +5,7 @@ import { Space, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { CgDetailsMore } from "react-icons/cg";
 import { useListofODP } from "../hooks";
+import dayjs from "dayjs";
 // components
 import Spinner from "../../../../../components/Spinner";
 
@@ -14,8 +15,9 @@ interface DataType {
   serial_number: string;
   capacity: number;
   optical_power: string;
-  installedDate: string;
-  location: string;
+  installed_at: string;
+  latitude: string;
+  longitude: string;
 }
 export default function Index() {
   const { data, isLoading } = useListofODP();
@@ -49,29 +51,38 @@ export default function Index() {
       render: (_, { optical_power }) => <>{optical_power} dBm</>,
     },
     {
-      title: "Installed Data",
-      dataIndex: "installedDate",
-      key: "installedDate",
+      title: "Installed Date",
+      dataIndex: "installed_at",
+      key: "installed_at",
       align: "center",
+      render: (_, { installed_at }) => (
+        <>
+          {installed_at ? (
+            <>{dayjs(installed_at).format("DD-MM-YYYY")}</>
+          ) : (
+            <div>-</div>
+          )}
+        </>
+      ),
     },
     {
       title: "Location",
-      dataIndex: "location",
-      key: "location",
+      dataIndex: "latitude",
+      key: "latitude",
       align: "center",
-      render: (_, { location }) => (
+      render: (_, { latitude, longitude }) => (
         <>
-          {location ? (
+          {latitude || longitude ? (
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href={`https://www.google.com/maps?q=${location}`}
-              className="text-error underline underline-offset-4"
+              href={`https://www.google.com/maps?q=${latitude}, ${longitude}`}
+              className="underline underline-offset-4 text-cyan-500"
             >
               View Location
             </a>
           ) : (
-            <div>No Location</div>
+            <div>-</div>
           )}
         </>
       ),
@@ -91,7 +102,7 @@ export default function Index() {
               Detail
             </NavLink>
           ) : (
-            <div>No Detail Data</div>
+            <div>-</div>
           )}
         </Space>
       ),

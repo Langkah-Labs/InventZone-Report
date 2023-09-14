@@ -6,12 +6,18 @@ const findAllProductsQuery = `
   query GetProductSerials {
     product_serials {
       capacity
+      capacity_remaining
       id
+      port_id
       product_id
+      attachment
+      latitude
+      longitude
       optical_power
       serial_number
       description
       created_at
+      installed_at
       updated_at
     }
   }
@@ -22,8 +28,9 @@ interface DataType {
   serial_number: string;
   capacity: number;
   optical_power: string;
-  installedDate: string;
-  location: string;
+  installed_at: string;
+  latitude: string;
+  longitude: string;
 }
 
 export const useListofODP = () => {
