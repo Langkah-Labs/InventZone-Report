@@ -32,11 +32,7 @@ const option: EChartsOption = {
       type: "pie",
       radius: "50%",
       color: colorPalette,
-      data: [
-        { value: 3, name: "High Port" },
-        { value: 1, name: "Medium Port" },
-        { value: 1, name: "Low Port" },
-      ],
+      data: [],
       emphasis: {
         itemStyle: {
           shadowBlur: 10,
@@ -68,9 +64,11 @@ export default function Index({ dataSource, isLoading }: Props) {
   useEffect(() => {
     if (chartEl.current) {
       chartEl.current.setOption<EChartsOption>({
-        dataset: {
-          source: dataSource,
-        },
+        series: [
+          {
+            data: dataSource,
+          },
+        ],
       });
     }
   }, [dataSource]); // eslint-disable-line

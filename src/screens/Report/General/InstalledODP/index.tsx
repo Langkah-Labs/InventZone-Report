@@ -9,8 +9,13 @@ import MapChart from "./MapChart";
 import SummaryCard from "./SummaryCard";
 
 export default function Index() {
-  const { isLoading, totalProduct, totalInstalled, avgInstalled } =
-    useInstalledODP();
+  const {
+    isLoading,
+    totalProduct,
+    totalInstalled,
+    avgInstalled,
+    classificationData,
+  } = useInstalledODP();
 
   return (
     <>
@@ -50,7 +55,7 @@ export default function Index() {
               </div>
               <div className="flex justify-center items-start gap-2 sm:flex-col xs:flex-col">
                 <div className="w-6/12 sm:w-full xs:w-full">
-                  <PieChart />
+                  <PieChart dataSource={classificationData} />
                 </div>
                 <div className="flex flex-col gap-2 w-4/12 border border-softwhite rounded-md p-4 text-[12px] sm:w-full xs:w-full">
                   <h2 className="underline underline-offset-4">Notes:</h2>
