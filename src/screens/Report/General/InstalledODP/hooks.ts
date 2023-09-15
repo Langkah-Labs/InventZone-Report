@@ -39,24 +39,45 @@ query GetCapacityProduct {
 }
 `;
 
+const findAllProductsQuery = `
+  query GetProductSerials {
+    product_serials {
+      capacity
+      capacity_remaining
+      id
+      port_id
+      product_id
+      attachment
+      latitude
+      longitude
+      optical_power
+      serial_number
+      description
+      created_at
+      installed_at
+      updated_at
+    }
+  }
+`;
+interface DataType {
+  key: string;
+  no: number;
+  serial_number: string;
+  capacity: number;
+  capacity_remaining: number
+  optical_power: string;
+  installed_at: string;
+  latitude: string;
+  longitude: string;
+}
+
 export const useInstalledODP = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [totalProduct, setTotalProduct] = useState<number>(0);
   const [totalInstalled, setTotalInstalled] = useState<number>(0);
   const [avgInstalled, setAvgInstalled] = useState<number>(0);
   const [classificationData, setClassificationData] = useState<Array<any>>([]);
-  const [mapData, setMapData] = useState([
-    {
-      odp_id: "",
-      capacity: 0,
-      capacity_after: 0,
-      optical_power: 0,
-      installation_date: "",
-      location: "",
-      lat: 0,
-      long: 0,
-    },
-  ]);
+  const [mapData, setMapData] = useState<DataType[]>([]);
 
   useEffect(() => {
     setIsLoading(false);
@@ -76,6 +97,10 @@ export const useInstalledODP = () => {
         {}
       );
       const resCapacity = await graphqlRequest.request<any>(getCapacity, {});
+      const resMap = await graphqlRequest.request<any>(
+        findAllProductsQuery,
+        {}
+      );
       // store the data
       if (resAll) {
         setTotalProduct(resAll.product_serials_aggregate.aggregate.count);
@@ -133,9 +158,12 @@ export const useInstalledODP = () => {
         }));
         setClassificationData(result);
       }
+      if (resMap) {
+        setMapData(resMap.product_serials);
+        setIsLoading(false);
+      }
     };
     fetch();
-    setMapData(mock_data);
   }, []);
 
   return {

@@ -10,14 +10,15 @@ import {
 } from "../../../../../../utils/constants";
 
 interface odpData {
-  odp_id: string;
+  key: string;
+  no: number;
+  serial_number: string;
   capacity: number;
-  capacity_after: number;
-  optical_power: number;
-  installation_date: string;
-  location: string;
-  lat: number;
-  long: number;
+  capacity_remaining: number;
+  optical_power: string;
+  installed_at: string;
+  latitude: string;
+  longitude: string;
 }
 
 interface Props {
@@ -49,28 +50,42 @@ export default function Index({ data }: Props) {
   return (
     <>
       {data.map((item) => {
-        const position: [number, number] = [item.lat, item.long];
-        if (item.capacity_after < 8 && item.capacity_after >= 4) {
+        const position: [number, number] = [
+          Number(item.latitude),
+          Number(item.longitude),
+        ];
+        if (item.capacity_remaining < 8 && item.capacity_remaining >= 4) {
           return (
-            <Marker key={item.odp_id} position={position} icon={yellowIcon}>
+            <Marker
+              key={item.serial_number}
+              position={position}
+              icon={yellowIcon}
+            >
               <Popup>
-                ODP ID: {item.odp_id} <br /> Kapasitas: {item.capacity_after}
+                ODP ID: {item.serial_number} <br /> Kapasitas:{" "}
+                {item.capacity_remaining}
               </Popup>
             </Marker>
           );
-        } else if (item.capacity_after >= 8) {
+        } else if (item.capacity_remaining >= 8) {
           return (
-            <Marker key={item.odp_id} position={position} icon={blueIcon}>
+            <Marker
+              key={item.serial_number}
+              position={position}
+              icon={blueIcon}
+            >
               <Popup>
-                ODP ID: {item.odp_id} <br /> Kapasitas: {item.capacity_after}
+                ODP ID: {item.serial_number} <br /> Kapasitas:{" "}
+                {item.capacity_remaining}
               </Popup>
             </Marker>
           );
-        } else if (item.capacity_after < 4) {
+        } else if (item.capacity_remaining < 4) {
           return (
-            <Marker key={item.odp_id} position={position} icon={redIcon}>
+            <Marker key={item.serial_number} position={position} icon={redIcon}>
               <Popup>
-                ODP ID: {item.odp_id} <br /> Kapasitas: {item.capacity_after}
+                ODP ID: {item.serial_number} <br /> Kapasitas:{" "}
+                {item.capacity_remaining}
               </Popup>
             </Marker>
           );
