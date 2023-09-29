@@ -28,13 +28,13 @@ const items: MenuProps["items"] = [
         key: "installed",
         icon: <IoMdAttach />,
       },
-      {
-        label: (
-          <NavLink to="/report/general/dismantle-odp">Dismantle ODP</NavLink>
-        ),
-        key: "dismantle",
-        icon: <MdLogout />,
-      },
+      // {
+      //   label: (
+      //     <NavLink to="/report/general/dismantle-odp">Dismantle ODP</NavLink>
+      //   ),
+      //   key: "dismantle",
+      //   icon: <MdLogout />,
+      // },
     ],
   },
   {

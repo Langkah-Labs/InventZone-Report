@@ -9,6 +9,10 @@ import dayjs from "dayjs";
 // components
 import Spinner from "../../../../../components/Spinner";
 
+interface sourceHardware {
+  id: string;
+}
+
 interface DataType {
   key: string;
   no: number;
@@ -18,6 +22,7 @@ interface DataType {
   installed_at: string;
   latitude: string;
   longitude: string;
+  hardware_installation: sourceHardware;
 }
 export default function Index() {
   const { data, isLoading } = useListofODP();
@@ -95,7 +100,7 @@ export default function Index() {
         <Space size="middle">
           {record.capacity !== 0 ? (
             <NavLink
-              to={`/report/field-data/list-customer`}
+              to={`/report/field-data/list-customer?port=${record.hardware_installation?.id}`}
               className="rounded text-sky-600 px-4 flex justify-center items-center gap-1 hover:opacity-75 hover:transition-opacity text-error underline underline-offset-4"
             >
               <CgDetailsMore />

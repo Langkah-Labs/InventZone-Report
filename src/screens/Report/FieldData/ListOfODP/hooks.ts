@@ -19,6 +19,9 @@ const findAllProductsQuery = `
       created_at
       installed_at
       updated_at
+      hardware_installation {
+        id
+      }
     }
   }
 `;

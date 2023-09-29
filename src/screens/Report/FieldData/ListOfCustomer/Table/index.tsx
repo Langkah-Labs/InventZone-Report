@@ -2,34 +2,34 @@ import React from "react";
 // dependencies
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { useListofCustomer } from "../hooks";
+import dayjs from "dayjs";
+// components
+import Spinner from "../../../../../components/Spinner";
 
 interface DataType {
   key: string;
   no: number;
-  name: string;
-  customerId: string;
+  customer_id: string;
   address: string;
-  installationDate: string;
+  created_at: string;
   service: string;
 }
 export default function Index() {
+  const { data, isLoading } = useListofCustomer();
+
   const columns: ColumnsType<DataType> = [
     {
       title: "No",
       dataIndex: "no",
       key: "no",
       align: "center",
+      render: (text, record, index) => index + 1,
     },
     {
       title: "Customer ID",
-      dataIndex: "customerId",
-      key: "customerId",
-      align: "center",
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "customer_id",
+      key: "customer_id",
       align: "center",
     },
     {
@@ -40,9 +40,18 @@ export default function Index() {
     },
     {
       title: "Installation Date",
-      dataIndex: "installationDate",
-      key: "installationDate",
+      dataIndex: "created_at",
+      key: "created_at",
       align: "center",
+      render: (_, { created_at }) => (
+        <>
+          {created_at ? (
+            <>{dayjs(created_at).format("DD-MM-YYYY")}</>
+          ) : (
+            <div>-</div>
+          )}
+        </>
+      ),
     },
     {
       title: "Service",
@@ -52,42 +61,22 @@ export default function Index() {
     },
   ];
 
-  const data: DataType[] = [
-    {
-      key: "1",
-      no: 1,
-      customerId: "CUST-1",
-      name: "Bryan",
-      address: "Perumahan BRI",
-      installationDate: "04 July 2023",
-      service: "Gold",
-    },
-    {
-      key: "2",
-      no: 2,
-      customerId: "CUST-2",
-      name: "Greg",
-      address: "Cilandak",
-      installationDate: "05 July 2023",
-      service: "Silver",
-    },
-    {
-      key: "3",
-      no: 3,
-      customerId: "CUST-3",
-      name: "Dyana",
-      address: "Kalibata City",
-      installationDate: "05 July 2023",
-      service: "Gold",
-    },
-  ];
   return (
-    <div className="overflow-scroll">
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={{ pageSize: 16 }}
-      />
-    </div>
+    <>
+      {isLoading ? (
+        <div className="h-screen flex justify-center items-center">
+          <Spinner />
+        </div>
+      ) : (
+        <div className="overflow-scroll">
+          <Table
+            columns={columns}
+            dataSource={data}
+            pagination={{ pageSize: 4 }}
+            rowKey="id"
+          />
+        </div>
+      )}
+    </>
   );
 }
