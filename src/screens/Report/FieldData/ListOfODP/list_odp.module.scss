@@ -1,49 +1,12 @@
 .list_odp {
-  input {
-    background: transparent;
-    border: 1px solid #ced4da;
-    border-radius: 10px;
-    text-align: center;
-    padding: 8px 20px;
-    font-size: 12px;
-    font-weight: 600;
-  }
-
-  table {
-    thead {
-      background-color: #abe4cd;
-      border: 1px solid #ced4da;
-      text-align: center;
-
-      th {
-        border: 1px solid #ced4da;
-        padding: 12px 32px;
-        font-size: 16px;
-        font-weight: normal;
-        color: #0b4b31;
-      }
+  .ant-picker-input {
+    input {
+      padding: 12px;
+      font-weight: 600;
+      color: aqua !important;
     }
-
-    tbody {
-      th,
-      td {
-        text-align: center;
-        padding: 12px 12px;
-        border: 1px solid #ced4da;
-      }
-
-      a {
-        color: #c06060;
-      }
+    input::placeholder {
+      color: white !important;
     }
-  }
-
-  ul {
-    display: flex;
-  }
-
-  li {
-    padding: 12px 12px;
-    font-size: 12px;
   }
 }

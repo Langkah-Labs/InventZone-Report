@@ -6,6 +6,7 @@ import type { ColumnsType } from "antd/es/table";
 import { CgDetailsMore } from "react-icons/cg";
 import { useListofODP } from "../hooks";
 import dayjs from "dayjs";
+import _ from "lodash";
 // components
 import Spinner from "../../../../../components/Spinner";
 
@@ -25,7 +26,7 @@ interface DataType {
   hardware_installation: sourceHardware;
 }
 export default function Index() {
-  const { data, isLoading } = useListofODP();
+  const { data, isLoading, dataSearch, searchValues } = useListofODP();
 
   const columns: ColumnsType<DataType> = [
     {
@@ -40,6 +41,8 @@ export default function Index() {
       dataIndex: "serial_number",
       key: "serial_number",
       align: "center",
+      sorter: (a, b) => a.serial_number.length - b.serial_number.length,
+      render: (serial_number) => serial_number,
     },
     {
       title: "Capacity",
@@ -47,6 +50,18 @@ export default function Index() {
       key: "capacity",
       align: "center",
       render: (_, { capacity }) => <>{capacity} port</>,
+      filters: [
+        {
+          text: "8 port",
+          value: "8",
+        },
+        {
+          text: "16 port",
+          value: "16",
+        },
+      ],
+      onFilter: (value: string, record) =>
+        record.capacity.toString().indexOf(value) === 0,
     },
     {
       title: "Optical Power",
@@ -54,6 +69,30 @@ export default function Index() {
       key: "optical_power",
       align: "center",
       render: (_, { optical_power }) => <>{optical_power} dBm</>,
+      filters: [
+        {
+          text: "-10 dBm",
+          value: "-10",
+        },
+        {
+          text: "-12 dBm",
+          value: "-12",
+        },
+        {
+          text: "-19 dBm",
+          value: "-19",
+        },
+        {
+          text: "-22 dBm",
+          value: "-22",
+        },
+        {
+          text: "-24 dBm",
+          value: "-24",
+        },
+      ],
+      onFilter: (value: string, record) =>
+        record.optical_power.toString().indexOf(value) === 0,
     },
     {
       title: "Installed Date",
@@ -69,6 +108,8 @@ export default function Index() {
           )}
         </>
       ),
+      sorter: (a, b) =>
+        new Date(a.installed_at).valueOf() - new Date(b.installed_at).valueOf(),
     },
     {
       title: "Location",
@@ -124,7 +165,8 @@ export default function Index() {
         <div className="overflow-scroll">
           <Table
             columns={columns}
-            dataSource={data}
+            dataSource={[...data]}
+            // onChange={(pagination, filters, sorter, currentPageData) => /* save currentPageData to store */ currentPageData = dataSearch}
             pagination={{ pageSize: 3 }}
             rowKey="id"
           />
