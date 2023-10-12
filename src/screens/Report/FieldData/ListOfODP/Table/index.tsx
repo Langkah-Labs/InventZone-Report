@@ -1,12 +1,11 @@
 import React from "react";
 // dependencies
 import { NavLink } from "react-router-dom";
-import { Space, Table } from "antd";
+import { Space, Table, Input, DatePicker } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { CgDetailsMore } from "react-icons/cg";
 import { useListofODP } from "../hooks";
 import dayjs from "dayjs";
-import _ from "lodash";
 // components
 import Spinner from "../../../../../components/Spinner";
 
@@ -26,7 +25,14 @@ interface DataType {
   hardware_installation: sourceHardware;
 }
 export default function Index() {
-  const { data, isLoading, dataSearch, searchValues } = useListofODP();
+  const {
+    data,
+    isLoading,
+    searchValues,
+    searchDateValues,
+    setSearchValues,
+    onChangeDate,
+  } = useListofODP();
 
   const columns: ColumnsType<DataType> = [
     {
@@ -41,8 +47,12 @@ export default function Index() {
       dataIndex: "serial_number",
       key: "serial_number",
       align: "center",
+      filteredValue: [searchValues],
+      onFilter: (value: string, record) => {
+        return record.serial_number.includes(value);
+      },
       sorter: (a, b) => a.serial_number.length - b.serial_number.length,
-      render: (serial_number) => serial_number,
+      render: (_, { serial_number }) => serial_number,
     },
     {
       title: "Capacity",
@@ -108,6 +118,10 @@ export default function Index() {
           )}
         </>
       ),
+      filteredValue: [searchDateValues],
+      onFilter: (value: string, record) => {
+        return dayjs(record.installed_at).format("DD-MM-YYYY")?.includes(value);
+      },
       sorter: (a, b) =>
         new Date(a.installed_at).valueOf() - new Date(b.installed_at).valueOf(),
     },
@@ -163,10 +177,35 @@ export default function Index() {
         </div>
       ) : (
         <div className="overflow-scroll">
+          <div className="flex justify-between items-center">
+            <Input.Search
+              placeholder="Type ODP-ID.."
+              onChange={(e) => setSearchValues(e.target.value)}
+              allowClear
+              style={{
+                width: "40%",
+                height: "auto",
+                marginBottom: 12,
+                backgroundColor: "#113A5D",
+                borderRadius: "8px",
+              }}
+              enterButton="Search"
+            />
+            <div className="flex items-center justify-end w-12/12">
+              <button className="bg-[#113A5D] px-4 py-[0.4rem] text-white text-sm rounded-l-md hover:opacity-90 -mr-1 z-10">
+                Filter
+              </button>
+              <DatePicker
+                onChange={onChangeDate}
+                format={"DD-MM-YYYY"}
+                className="w-60"
+                placeholder="Choose Installed Date.."
+              />
+            </div>
+          </div>
           <Table
             columns={columns}
-            dataSource={[...data]}
-            // onChange={(pagination, filters, sorter, currentPageData) => /* save currentPageData to store */ currentPageData = dataSearch}
+            dataSource={data}
             pagination={{ pageSize: 3 }}
             rowKey="id"
           />

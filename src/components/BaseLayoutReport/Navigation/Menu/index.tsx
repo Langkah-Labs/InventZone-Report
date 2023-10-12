@@ -59,7 +59,7 @@ const itemsMobile: MenuProps["items"] = [
     children: [
       {
         label: <NavLink to="/">Main Menu</NavLink>,
-        key: "installed",
+        key: "main",
         icon: <MdDomain />,
       },
       {
