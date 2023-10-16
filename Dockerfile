@@ -1,6 +1,8 @@
 ## BUILD STAGE
 FROM node:18.17.0-alpine as build
 
+LABEL org.opencontainers.image.source https://github.com/Langkah-Labs/InventZone-Report
+
 WORKDIR /usr/src/app
 
 COPY package.json yarn.lock ./

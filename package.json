@@ -39,7 +39,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "docker:build": "docker build -t ghcr.io/langkah-labs/inventzone-report:latest .",
+    "docker:push": "docker push ghcr.io/langkah-labs/inventzone-report:latest"
   },
   "eslintConfig": {
     "extends": [
