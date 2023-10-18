@@ -11,14 +11,93 @@ import {
 } from "@heroicons/react/20/solid";
 // assets
 import { icon_img } from "../../utils/constants";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
+import { signUp } from "supertokens-web-js/recipe/emailpassword";
+import { graphqlRequest } from "../../utils/graphql";
+
+const updateUserInternalRoleMutation = `
+  mutation UpdateUserInternalRole($email: String!) {
+    update_users(where: {email: {_eq: $email}}, _set: {role: "internal"}) {
+      affected_rows
+    }
+  }
+`;
+
+interface RegisterUserInput {
+  email: string;
+  password: string;
+  name: string;
+  company: string;
+  phone: string;
+}
 
 export default function Index() {
-  const {
-    passwordVisibility,
-    registerHandler,
-    protectedPassword,
-    showPassword,
-  } = useRegister();
+  const { passwordVisibility, protectedPassword, showPassword } = useRegister();
+
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm<RegisterUserInput>();
+
+  const onRegisterSubmit: SubmitHandler<RegisterUserInput> = async (data) => {
+    try {
+      let signUpResponse = await signUp({
+        formFields: [
+          {
+            id: "email",
+            value: data.email,
+          },
+          {
+            id: "password",
+            value: data.password,
+          },
+          {
+            id: "company",
+            value: data.company,
+          },
+          {
+            id: "name",
+            value: data.name,
+          },
+          {
+            id: "username",
+            value: data.email,
+          },
+          {
+            id: "phone",
+            value: data.phone,
+          },
+        ],
+      });
+
+      if (signUpResponse.status === "FIELD_ERROR") {
+        swal({
+          title: "Failed!",
+          text: "Oops, submit form failed please check your fields",
+          icon: "error",
+        });
+      } else if (signUpResponse.status === "SIGN_UP_NOT_ALLOWED") {
+        swal({
+          title: "Failed!",
+          text: "Oops, failed to registering an account",
+          icon: "error",
+        });
+      } else {
+        await graphqlRequest.request(updateUserInternalRoleMutation, {
+          email: data.email,
+        });
+        navigate("/");
+      }
+    } catch (e) {
+      console.error(e);
+      swal({
+        title: "Failed!",
+        text: "Oops, something went wrong",
+        icon: "error",
+      });
+    }
+  };
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center items-center lg:px-8 bg-gray-100 h-screen">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -29,7 +108,7 @@ export default function Index() {
       </div>
 
       <div className="mt-8 w-4/12 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-4" onSubmit={registerHandler}>
+        <form className="space-y-4" onSubmit={handleSubmit(onRegisterSubmit)}>
           <div>
             <label
               htmlFor="email"
@@ -45,8 +124,8 @@ export default function Index() {
                 />
               </div>
               <input
+                {...register("email")}
                 type="email"
-                name="email"
                 id="email"
                 className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 placeholder="you@example.com"
@@ -69,6 +148,7 @@ export default function Index() {
                 />
               </div>
               <input
+                {...register("password")}
                 type={protectedPassword(passwordVisibility.password)}
                 id="password"
                 className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -111,8 +191,8 @@ export default function Index() {
                 />
               </div>
               <input
+                {...register("name")}
                 type="text"
-                name="name"
                 id="name"
                 className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 placeholder="full name"
@@ -135,8 +215,8 @@ export default function Index() {
                 />
               </div>
               <input
+                {...register("company")}
                 type="text"
-                name="company"
                 id="company"
                 className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 placeholder="Company name"
@@ -159,8 +239,8 @@ export default function Index() {
                 />
               </div>
               <input
+                {...register("phone")}
                 type="text"
-                name="phoneNumber"
                 id="phoneNumber"
                 className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 placeholder="+62xxxx"

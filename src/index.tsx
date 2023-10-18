@@ -11,6 +11,7 @@ import App from "./App";
 // assets
 import "./styles/global.scss";
 import "leaflet/dist/leaflet.css";
+import "./utils/supertokens";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
