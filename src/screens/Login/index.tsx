@@ -6,9 +6,62 @@ import { NavLink } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 // assets
 import { icon_img } from "../../utils/constants";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { signIn } from "supertokens-web-js/recipe/emailpassword";
+import swal from "sweetalert";
+
+interface LoginInput {
+  email: string;
+  password: string;
+}
 
 export default function Index() {
-  const { isLoading, loginHandler } = useLogin();
+  const { isLoading } = useLogin();
+
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm<LoginInput>();
+
+  const onLogin: SubmitHandler<LoginInput> = async (data) => {
+    try {
+      let response = await signIn({
+        formFields: [
+          {
+            id: "email",
+            value: data.email,
+          },
+          {
+            id: "password",
+            value: data.password,
+          },
+        ],
+      });
+
+      if (response.status === "FIELD_ERROR") {
+        // one of the input formFields failed validaiton
+        swal({
+          title: "Failed!",
+          text: "Oops, submit form failed please check your fields",
+          icon: "error",
+        });
+      } else if (response.status === "WRONG_CREDENTIALS_ERROR") {
+        swal({
+          title: "Failed!",
+          text: "Oops, failed to login, please check your email/password",
+          icon: "error",
+        });
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err);
+      swal({
+        title: "Failed!",
+        text: "Oops, something went wrong",
+        icon: "error",
+      });
+    }
+  };
 
   return (
     <>
@@ -43,7 +96,7 @@ export default function Index() {
 
               <div className="mt-6">
                 <div>
-                  <form onSubmit={loginHandler} className="space-y-6">
+                  <form onSubmit={handleSubmit(onLogin)} className="space-y-6">
                     <div>
                       <label
                         htmlFor="email"
@@ -53,8 +106,8 @@ export default function Index() {
                       </label>
                       <div className="mt-2">
                         <input
+                          {...register("email")}
                           id="email"
-                          name="email"
                           type="email"
                           autoComplete="email"
                           required
@@ -72,8 +125,8 @@ export default function Index() {
                       </label>
                       <div className="mt-2">
                         <input
+                          {...register("password")}
                           id="password"
-                          name="password"
                           type="password"
                           autoComplete="current-password"
                           required
