@@ -151,14 +151,14 @@ export default function Index() {
                         </label>
                       </div>
 
-                      {/* <div className="text-sm leading-6">
-                        <a
-                          href="#"
-                          className="font-semibold text-indigo-600 hover:text-indigo-500"
+                      <div className="text-sm leading-6">
+                        <NavLink
+                          to="/forgot-password"
+                          className="font-semibold text-[#167AFF] hover:opacity-80"
                         >
                           Forgot password?
-                        </a>
-                      </div> */}
+                        </NavLink>
+                      </div>
                     </div>
 
                     <div>

@@ -16,7 +16,7 @@ export const useMain = () => {
   const getSession = async () => {
     setIsLoading(true);
     try {
-      await api.getSession();
+      // await api.getSession();
       setIsLoading(false);
     } catch (e) {
       setIsLoading(false);
