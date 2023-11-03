@@ -51,7 +51,7 @@ export default function Index() {
           icon: "error",
         });
       } else {
-        navigate("/");
+        navigate("/", { replace: true });
       }
     } catch (err) {
       console.error(err);

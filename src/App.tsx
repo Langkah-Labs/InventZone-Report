@@ -26,6 +26,7 @@ import UserList from "./screens/DataEntry/UserData/User";
 import TeamForm from "./screens/DataEntry/UserData/Team/Form";
 import TeamList from "./screens/DataEntry/UserData/Team";
 import ForgotPassword from "./screens/ForgotPassword";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -33,82 +34,216 @@ function App() {
       <ProSidebarProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Main />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/report/general" element={<GeneralReport />} />
+            <Route
+              path="/report/general"
+              element={
+                <ProtectedRoute>
+                  <GeneralReport />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/report/general/installed-odp"
-              element={<InstalledODP />}
+              element={
+                <ProtectedRoute>
+                  <InstalledODP />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/report/general/dismantle-odp"
-              element={<DismantleODP />}
+              element={
+                <ProtectedRoute>
+                  <DismantleODP />
+                </ProtectedRoute>
+              }
             />
-            <Route path="/report/field-data" element={<FieldDataReport />} />
-            <Route path="/report/field-data/list-odp" element={<ListODP />} />
+            <Route
+              path="/report/field-data"
+              element={
+                <ProtectedRoute>
+                  <FieldDataReport />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/report/field-data/list-odp"
+              element={
+                <ProtectedRoute>
+                  <ListODP />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/report/field-data/list-customer"
-              element={<ListCustomer />}
+              element={
+                <ProtectedRoute>
+                  <ListCustomer />
+                </ProtectedRoute>
+              }
             />
-            <Route path="/data-entry/field-data" element={<MainDataEntry />} />
-            <Route path="/data-entry/field-data/nfc" element={<NFCList />} />
+            <Route
+              path="/data-entry/field-data"
+              element={
+                <ProtectedRoute>
+                  <MainDataEntry />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/data-entry/field-data/nfc"
+              element={
+                <ProtectedRoute>
+                  <NFCList />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/data-entry/field-data/nfc/add"
-              element={<NFCForm />}
+              element={
+                <ProtectedRoute>
+                  <NFCForm />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/data-entry/field-data/nfc/update/:id"
-              element={<NFCForm />}
+              element={
+                <ProtectedRoute>
+                  <NFCForm />
+                </ProtectedRoute>
+              }
             />
-            <Route path="/data-entry/field-data/odp" element={<ODPList />} />
+            <Route
+              path="/data-entry/field-data/odp"
+              element={
+                <ProtectedRoute>
+                  <ODPList />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/data-entry/field-data/odp/add"
-              element={<ODPForm />}
+              element={
+                <ProtectedRoute>
+                  <ODPForm />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/data-entry/field-data/odp/update/:id"
-              element={<ODPForm />}
+              element={
+                <ProtectedRoute>
+                  <ODPForm />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/data-entry/field-data/odp-attached"
-              element={<ODPAttachedList />}
+              element={
+                <ProtectedRoute>
+                  <ODPAttachedList />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/data-entry/field-data/odp-attached/add"
-              element={<ODPAttachedForm />}
+              element={
+                <ProtectedRoute>
+                  <ODPAttachedForm />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/data-entry/field-data/odp-attached/update/:id"
-              element={<ODPAttachedForm />}
+              element={
+                <ProtectedRoute>
+                  <ODPAttachedForm />
+                </ProtectedRoute>
+              }
             />
-            <Route path="/data-entry/user-data/role" element={<RoleList />} />
+            <Route
+              path="/data-entry/user-data/role"
+              element={
+                <ProtectedRoute>
+                  <RoleList />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/data-entry/user-data/role/add"
-              element={<RoleForm />}
+              element={
+                <ProtectedRoute>
+                  <RoleForm />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/data-entry/user-data/role/update/:id"
-              element={<RoleForm />}
+              element={
+                <ProtectedRoute>
+                  <RoleForm />
+                </ProtectedRoute>
+              }
             />
-            <Route path="/data-entry/user-data/user" element={<UserList />} />
+            <Route
+              path="/data-entry/user-data/user"
+              element={
+                <ProtectedRoute>
+                  <UserList />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/data-entry/user-data/user/add"
-              element={<UserForm />}
+              element={
+                <ProtectedRoute>
+                  <UserForm />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/data-entry/user-data/user/update/:id"
-              element={<UserForm />}
+              element={
+                <ProtectedRoute>
+                  <UserForm />
+                </ProtectedRoute>
+              }
             />
-            <Route path="/data-entry/user-data/team" element={<TeamList />} />
+            <Route
+              path="/data-entry/user-data/team"
+              element={
+                <ProtectedRoute>
+                  <TeamList />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/data-entry/user-data/team/add"
-              element={<TeamForm />}
+              element={
+                <ProtectedRoute>
+                  <TeamForm />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/data-entry/user-data/team/update/:id"
-              element={<TeamForm />}
+              element={
+                <ProtectedRoute>
+                  <TeamForm />
+                </ProtectedRoute>
+              }
             />
           </Routes>
         </Router>
