@@ -4,27 +4,24 @@ import { useSearchParams } from "react-router-dom";
 import { graphqlRequest } from "../../../../utils/graphql";
 
 const findAllCustomersbyIdQuery = `
-  query GetHardwareInstallationsById($id: bigint!) {
-    product_serials(where: {hardware_installation: {id: {_eq: $id}}}) {
-      hardware_installation {
-        id
-        customers {
-          address
-          created_at
-          customer_id
-          hardware_installation_id
-          id
-          modem_serial_number
-          port
-          power_signal
-          service
-          updated_at
-        }
-      }
+  query GetHardwareInstallationsById($hardware_installation_id: String!) {
+    product_serials(where: {hardware_installation: {hardware_installation_id: {_eq: $hardware_installation_id}}}) {
       serial_number
       capacity
       latitude
       longitude
+    }
+    customers(where: {hardware_installation_id: {_eq: $hardware_installation_id}}) {
+      address
+      created_at
+      customer_id
+      hardware_installation_id
+      id
+      modem_serial_number
+      port
+      power_signal
+      service
+      updated_at
     }
   }    
 `;
@@ -49,10 +46,10 @@ export const useListofCustomer = () => {
     const fetch = async () => {
       setIsLoading(true);
       const res = await graphqlRequest.request<any>(findAllCustomersbyIdQuery, {
-        id: portId,
+        hardware_installation_id: portId,
       });
       if (res) {
-        setData(res.product_serials[0].hardware_installation.customers);
+        setData(res.customers);
         setInfo(res.product_serials);
         setIsLoading(false);
       }

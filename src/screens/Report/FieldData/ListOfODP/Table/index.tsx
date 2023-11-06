@@ -11,6 +11,7 @@ import Spinner from "../../../../../components/Spinner";
 
 interface sourceHardware {
   id: string;
+  hardware_installation_id: string;
 }
 
 interface DataType {
@@ -49,7 +50,7 @@ export default function Index() {
       align: "center",
       filteredValue: [searchValues],
       onFilter: (value: string, record) => {
-        return record.serial_number.includes(value);
+        return record.serial_number.toLowerCase().includes(value.toLowerCase());
       },
       sorter: (a, b) => a.serial_number.length - b.serial_number.length,
       render: (_, { serial_number }) => serial_number,
@@ -153,9 +154,9 @@ export default function Index() {
       align: "center",
       render: (_, record) => (
         <Space size="middle">
-          {record.capacity !== 0 ? (
+          {record.hardware_installation !== null ? (
             <NavLink
-              to={`/report/field-data/list-customer?port=${record.hardware_installation?.id}`}
+              to={`/report/field-data/list-customer?port=${record.hardware_installation?.hardware_installation_id}`}
               className="rounded text-sky-600 px-4 flex justify-center items-center gap-1 hover:opacity-75 hover:transition-opacity text-error underline underline-offset-4"
             >
               <CgDetailsMore />
@@ -206,7 +207,7 @@ export default function Index() {
           <Table
             columns={columns}
             dataSource={data}
-            pagination={{ pageSize: 3 }}
+            pagination={{ pageSize: 10 }}
             rowKey="id"
           />
         </div>

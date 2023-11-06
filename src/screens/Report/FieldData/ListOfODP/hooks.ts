@@ -22,6 +22,7 @@ const findAllProductsQuery = `
       updated_at
       hardware_installation {
         id
+        hardware_installation_id
       }
     }
   }
